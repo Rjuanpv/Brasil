@@ -1,0 +1,92 @@
+/*
+  Design tokens — BRASIL EM MOVIMENTO
+  Fonte: docs/# DESIGN SYSTEM.txt e docs/# DIREÇÃO DE ARTE.txt
+  Toda cor, escala e espaçamento do projeto sai daqui. Não usar valores soltos.
+*/
+
+:root {
+  /* ---- Cores ---- */
+  --color-green-950: #063d2b; /* fundo principal, base da identidade */
+  --color-green-700: #087a4b; /* camadas, detalhes, elementos secundários */
+  --color-yellow-500: #ffd500; /* destaques, botões, formas em movimento */
+  --color-blue-900: #073b7a; /* profundidade, camadas, transições */
+  --color-cream: #f4f0e6; /* textos e áreas de respiro — nunca branco puro */
+  --color-black: #080a09; /* contraste, seções dramáticas */
+
+  /* ---- Tipografia ---- */
+  --font-display: "Anton", "Arial Narrow", sans-serif;
+  --font-body: "Inter Variable", "Inter", system-ui, sans-serif;
+
+  --display-xl: clamp(7rem, 18vw, 20rem);
+  --display-lg: clamp(5rem, 12vw, 14rem);
+  --display-md: clamp(4rem, 9vw, 10rem);
+
+  --heading-xl: clamp(3rem, 7vw, 7rem);
+  --heading-lg: clamp(2.5rem, 5vw, 5rem);
+  --heading-md: clamp(2rem, 3vw, 3.5rem);
+
+  --body-lg: 1.25rem;
+  --body-md: 1rem;
+  --body-sm: 0.875rem;
+  --label: 0.75rem;
+
+  /* ---- Espaçamento ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 160px;
+
+  /* ---- Grid ---- */
+  --grid-columns: 12;
+  --grid-gutter: var(--space-5);
+  --grid-margin: clamp(var(--space-5), 4vw, var(--space-9));
+
+  /* ---- Bordas ---- */
+  --radius-0: 0px;
+  --radius-2: 2px;
+  --radius-4: 4px;
+  --radius-8: 8px;
+
+  /*
+    Camadas. A ordem é a própria fonte de profundidade da composição:
+    a tipografia fica entre as formas, não acima de todas elas.
+  */
+  --z-background: 0;
+  --z-shape-back: 10;
+  --z-image: 20;
+  --z-type: 30;
+  --z-shape-front: 40;
+  --z-texture: 50;
+  --z-foreground: 60;
+  --z-nav: 100;
+  --z-cursor: 9000;
+  --z-loader: 9500;
+}
+
+/*
+  Breakpoints. Custom properties não funcionam dentro de @media, então os valores
+  ficam aqui como documentação e são repetidos literalmente nas media queries.
+    --mobile: 480px
+    --tablet: 768px
+    --desktop: 1024px
+    --wide: 1440px
+*/
+
+@media (max-width: 768px) {
+  :root {
+    --grid-columns: 8;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --grid-columns: 4;
+  }
+}

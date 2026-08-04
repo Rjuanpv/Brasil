@@ -1,0 +1,91 @@
+/*
+  03 — MANIFESTO.
+
+  Preto e creme, com o amarelo só na linha de destaque. Depois da faixa amarela
+  dos estados, o corte para preto é o contraste mais duro da página até aqui —
+  é o que separa a afirmação de escala da argumentação.
+*/
+.manifesto {
+  position: relative;
+  background: var(--color-black);
+  color: var(--color-cream);
+  padding: clamp(var(--space-9), 14vh, var(--space-11)) var(--grid-margin);
+  display: grid;
+  /* Composição assimétrica: o conteúdo não ocupa a largura toda nem se
+     centraliza — a direção de arte pede layouts fora do eixo. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7);
+}
+
+.manifesto__index {
+  color: var(--color-green-700);
+}
+
+.manifesto .section-title {
+  font-size: var(--display-md);
+  max-width: 14ch;
+}
+
+.manifesto__lead {
+  max-width: 46ch;
+  font-size: var(--body-lg);
+  line-height: 1.55;
+  opacity: 0.78;
+  /* Empurrado para a direita: cria a assimetria com o título, que fica colado
+     na margem esquerda. */
+  justify-self: end;
+  margin-block-start: clamp(var(--space-5), 4vh, var(--space-8));
+}
+
+/* ---- Números ---- */
+
+.manifesto__facts {
+  margin: 0;
+  margin-block-start: clamp(var(--space-7), 8vh, var(--space-10));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-7) var(--space-6);
+  border-top: 1px solid rgb(244 240 230 / 0.15);
+  padding-block-start: var(--space-7);
+}
+
+.manifesto__fact {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+}
+
+.manifesto__value {
+  font-size: var(--heading-lg);
+  color: var(--color-yellow-500);
+  line-height: 0.9;
+  /* Tabular evita que os dígitos dancem de largura durante a contagem. */
+  font-variant-numeric: tabular-nums;
+}
+
+.manifesto__label {
+  margin: 0;
+  opacity: 0.6;
+  max-width: 18ch;
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 1025px) {
+  .manifesto {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .manifesto__index,
+  .manifesto__facts {
+    grid-column: 1 / -1;
+  }
+
+  .manifesto .section-title {
+    grid-column: 1 / span 7;
+  }
+
+  .manifesto__lead {
+    grid-column: 8 / -1;
+    justify-self: start;
+  }
+}

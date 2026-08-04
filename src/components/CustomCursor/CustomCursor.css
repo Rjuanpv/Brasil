@@ -1,0 +1,65 @@
+/*
+  Cursor customizado.
+
+  A raiz é apenas um ponto: ela não tem dimensão e é levada até a posição do
+  ponteiro por transform. O disco e o rótulo são filhos absolutos ancorados
+  nesse ponto, cada um se centrando por conta própria.
+
+  Posicionamento absoluto e não grid: um contêiner de grid com dimensão zero
+  depende de como o navegador dimensiona a trilha implícita para saber onde
+  colocar um item que transborda — comportamento sutil demais para uma peça
+  que precisa simplesmente funcionar.
+*/
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/*
+  O disco. É este elemento que a animação escala — a raiz não, senão o rótulo
+  seria escalado junto.
+
+  Centrado por margem negativa, e não por transform: o transform fica livre
+  para a escala, sem que as duas coisas disputem a mesma propriedade.
+*/
+.custom-cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  /*
+    A borda escura garante leitura sobre o amarelo, único caso em que o creme
+    sumia. Blend mode resolveria também, mas obriga o navegador a recompor o
+    fundo a cada movimento — e o cursor se move em todo frame.
+  */
+  box-shadow: 0 0 0 1px rgb(8 10 9 / 0.22);
+  will-change: transform;
+}
+
+/*
+  O rótulo, no corpo real e fora da escala: nítido em qualquer estado.
+  Antes ele vivia dentro do disco a 3,5px e era ampliado 3,4× — o navegador
+  rasterizava no tamanho pequeno e esticava o bitmap, o que serrilhava.
+*/
+.custom-cursor__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-body);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-black);
+  opacity: 0;
+  white-space: nowrap;
+}

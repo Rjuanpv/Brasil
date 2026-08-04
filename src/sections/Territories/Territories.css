@@ -1,0 +1,197 @@
+/*
+  04 — TERRITÓRIOS.
+  Cor dominante verde, apoio azul e amarelo no destaque — conforme a tabela da
+  direção de arte.
+
+  Nada aqui toca `*`, `body` ou `:root`. O efeito de origem é escrito como uma
+  página inteira e declara resets globais; trazidos para cá, eles reestilizariam
+  o site todo. Tudo está escopado sob `.territories`.
+*/
+.territories {
+  position: relative;
+  background: var(--color-green-950);
+  color: var(--color-cream);
+  padding: clamp(var(--space-9), 12vh, var(--space-11)) var(--grid-margin);
+  display: grid;
+  gap: var(--space-6);
+  /* As linhas grandes podem sangrar; nada escapa da seção. */
+  overflow: hidden;
+}
+
+.territories__index {
+  color: var(--color-yellow-500);
+}
+
+.territories .section-title {
+  font-size: var(--display-md);
+  max-width: 16ch;
+}
+
+/* ============================================================
+   Palco: a lista e o painel da imagem compartilham a mesma área
+   ============================================================ */
+
+.territories__stage {
+  position: relative;
+  margin-block-start: clamp(var(--space-8), 10vh, var(--space-11));
+}
+
+/*
+  Painel da imagem, sobreposto à lista pela direita.
+
+  Sobreposto e não ao lado: numa coluna própria, a lista perderia largura e os
+  nomes deixariam de ocupar a faixa inteira — que é o que dá a escala editorial.
+  Como a imagem só existe durante o hover, a sobreposição não atrapalha a
+  leitura em repouso.
+*/
+.territories__reveal {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  translate: 0 -50%;
+  width: clamp(200px, 24vw, 340px);
+  aspect-ratio: 4 / 5;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Lista
+   ============================================================ */
+
+/*
+  Sem linhas divisórias. O que separa as regiões é o espaço entre elas e a
+  reação ao ponteiro — a régua horizontal só competia com a tipografia.
+*/
+.territories__list {
+  position: relative;
+  z-index: 2;
+}
+
+.territories__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  /* Padding maior por não haver régua: o respiro é o único separador. */
+  padding: clamp(var(--space-5), 2.8vh, var(--space-7)) 0;
+  cursor: pointer;
+}
+
+/*
+  Os três rótulos são janelas de uma linha só. `overflow: hidden` é o que
+  transforma o deslocamento vertical em rolagem de texto.
+*/
+.territories__info,
+.territories__name,
+.territories__tag {
+  position: relative;
+  overflow: hidden;
+}
+
+.territories__info p,
+.territories__name p,
+.territories__tag p {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  margin: 0;
+  transition: color 0.25s;
+}
+
+/* A segunda cópia espera abaixo da janela, já na cor de destaque. */
+.territories__info p:nth-child(2),
+.territories__name p:nth-child(2),
+.territories__tag p:nth-child(2) {
+  top: 100%;
+  color: var(--color-yellow-500);
+}
+
+/*
+  Com o ponteiro em qualquer lugar da lista, a primeira linha de TODAS as
+  fileiras recua. A cópia em destaque só aparece na fileira que rola — é essa
+  combinação que faz a linha apontada saltar sem que as outras sumam.
+*/
+.territories__list:hover .territories__info p:nth-child(1),
+.territories__list:hover .territories__name p:nth-child(1),
+.territories__list:hover .territories__tag p:nth-child(1) {
+  color: rgb(244 240 230 / 0.32);
+}
+
+/* ---- Proporções das colunas ---- */
+
+.territories__info,
+.territories__tag {
+  flex: 1;
+  font-size: var(--label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* Janela na altura exata de uma linha do rótulo. */
+  height: 1.1em;
+}
+
+.territories__tag {
+  text-align: right;
+}
+
+.territories__name {
+  flex: 4;
+  text-align: center;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  /*
+    A janela é deliberadamente mais curta que o tipo: o corte no topo e na base
+    do glifo é o que dá o aperto editorial do efeito. Em `em` para a relação se
+    manter em qualquer tamanho de fonte.
+  */
+  height: 0.86em;
+}
+
+.territories__name p {
+  line-height: 1;
+}
+
+/* ============================================================
+   Responsivo e acessibilidade
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /*
+    Sem ponteiro não há rolagem de texto nem preview, então a linha vira uma
+    ficha empilhada — legível sem depender de hover.
+  */
+  .territories__row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+
+  .territories__info,
+  .territories__tag {
+    flex: none;
+    text-align: left;
+    width: 100%;
+  }
+
+  .territories__name {
+    flex: none;
+    width: 100%;
+    text-align: left;
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  /* Sem ponteiro a imagem nunca é revelada, e sobreposta às fichas ela só
+     roubaria largura da leitura. */
+  .territories__reveal {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .territories__info p,
+  .territories__name p,
+  .territories__tag p {
+    transition: none;
+  }
+}

@@ -1,0 +1,255 @@
+# DIREÇÃO DE ARTE
+
+## Referência visual
+
+Utilizar o vídeo fornecido como referência para:
+
+* Qualidade do motion design;
+* Interatividade com o mouse;
+* Profundidade visual;
+* Composição em camadas;
+* Movimento suave;
+* Transições cinematográficas;
+* Sensação de uma experiência digital premium.
+
+Não copiar:
+
+* Layout;
+* Elementos;
+* Imagens;
+* Tipografia;
+* Estrutura;
+* Identidade visual.
+
+A identidade deve ser original e construída a partir do conceito “Brasil em Movimento”.
+
+## Estilo visual
+
+Criar uma estética:
+
+* Editorial;
+* Contemporânea;
+* Experimental;
+* Tipográfica;
+* Cinematográfica;
+* Imersiva;
+* Minimalista em componentes;
+* Rica em composição;
+* Visualmente ousada.
+
+O design deve usar grandes áreas de cor, tipografia em escala extrema e imagens impactantes.
+
+Evitar uma interface com muitos componentes pequenos.
+
+A página deve parecer uma composição artística, não um dashboard.
+
+## Tipografia
+
+### Fonte principal
+
+Utilizar:
+
+Anton
+
+A Anton será a fonte de identidade do projeto.
+
+Usar Anton em:
+
+* Títulos;
+* Frases de impacto;
+* Nomes de cidades;
+* Números;
+* Palavras editoriais;
+* Elementos visuais grandes.
+
+Características:
+
+* Letras maiúsculas;
+* Escala muito grande;
+* Alta presença visual;
+* Pouco espaçamento entre letras;
+* Linhas compactas;
+* Possibilidade de corte nas bordas da viewport.
+
+A tipografia deve fazer parte da composição.
+
+Os títulos podem ocupar 70% ou mais da tela.
+
+Exemplo:
+
+BRASIL
+
+EM
+MOVIMENTO
+
+A tipografia pode ficar parcialmente escondida atrás de imagens ou formas.
+
+### Fonte secundária
+
+Utilizar:
+
+Inter ou Manrope.
+
+Usar em:
+
+* Menus;
+* Botões;
+* Legendas;
+* Descrições;
+* Textos longos;
+* Informações de interface.
+
+A fonte secundária deve manter a legibilidade e equilibrar a força da Anton.
+
+## Paleta
+
+As cores devem ser inspiradas no Brasil, mas reinterpretadas de maneira sofisticada.
+
+### Verde profundo
+
+#063D2B
+
+Uso:
+
+* Fundo principal;
+* Seções imersivas;
+* Base visual da identidade.
+
+### Verde vibrante
+
+#087A4B
+
+Uso:
+
+* Camadas;
+* Detalhes;
+* Elementos secundários.
+
+### Amarelo energético
+
+#FFD500
+
+Uso:
+
+* Destaques;
+* Palavras importantes;
+* Botões;
+* Estados de interação;
+* Formas em movimento.
+
+O amarelo deve gerar energia.
+
+Não utilizar amarelo em excesso.
+
+### Azul profundo
+
+#073B7A
+
+Uso:
+
+* Profundidade;
+* Camadas visuais;
+* Transições;
+* Seções secundárias.
+
+### Branco quente
+
+#F4F0E6
+
+Uso:
+
+* Textos;
+* Áreas de respiro;
+* Fundos claros.
+
+Evitar branco puro.
+
+### Preto
+
+#080A09
+
+Uso:
+
+* Contraste;
+* Seções mais dramáticas;
+* Fundos de encerramento.
+
+## Regras de cor
+
+Não usar verde, amarelo e azul juntos em todos os componentes.
+
+Cada seção deve ter uma cor dominante.
+
+Exemplo:
+
+Hero:
+Verde profundo + amarelo.
+
+Territórios:
+Verde + azul.
+
+Ritmos:
+Amarelo + preto.
+
+Natureza:
+Verde + creme.
+
+Cidades:
+Azul + branco quente.
+
+Futuro:
+Preto + verde vibrante.
+
+## Formas gráficas
+
+Usar referências abstratas à geometria brasileira.
+
+Possíveis elementos:
+
+* Círculos;
+* Losangos;
+* Linhas;
+* Recortes;
+* Blocos;
+* Formas orgânicas;
+* Texturas naturais.
+
+O círculo e o losango podem remeter à bandeira, mas não devem reproduzi-la literalmente.
+
+As formas devem parecer parte de um sistema gráfico original.
+
+## Imagens
+
+Usar imagens grandes, expressivas e com recortes editoriais.
+
+Evitar:
+
+* Bancos de imagens genéricos;
+* Pessoas sorrindo diretamente para a câmera;
+* Fotos turísticas previsíveis;
+* Colagens sem hierarquia.
+
+As imagens devem ser:
+
+* Cortadas de forma ousada;
+* Sobrepostas;
+* Animadas;
+* Utilizadas como camadas;
+* Integradas à tipografia.
+
+## Composição
+
+Usar:
+
+* Layout assimétrico;
+* Espaços negativos;
+* Tipografia gigante;
+* Imagens sobrepostas;
+* Elementos parcialmente fora da tela;
+* Camadas em diferentes profundidades.
+
+Não centralizar tudo.
+
+Não criar todas as seções com o mesmo layout.
+
+A composição deve variar, mantendo as regras do sistema visual.

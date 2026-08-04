@@ -1,0 +1,79 @@
+import gsap from "gsap";
+import {
+  ENTRANCE_TIMING,
+  REDUCED_ENTRANCE_TIMING,
+  addLettersEntrance,
+} from "@/animations/lettersEntrance";
+import { createWordScrollReveal } from "@/animations/wordScrollReveal";
+
+/*
+  As duas fases da abertura são construídas separadamente, e não ao mesmo tempo.
+
+  A FASE 2 depende de um documento rolável para medir o pin e a distância, e de
+  a palavra já estar na tela para gravar os valores iniciais corretos dos seus
+  tweens. Nada disso é verdade enquanto a FASE 1 roda com o scroll travado —
+  por isso ela só pode ser criada depois que a palavra se forma.
+*/
+
+/** Pausa com a palavra formada, antes de liberar o scroll. */
+const RECOGNITION_PAUSE = 0.55;
+const REDUCED_RECOGNITION_PAUSE = 0.3;
+
+export interface IntroRefs {
+  stage: HTMLElement;
+  topHalf: HTMLElement;
+  bottomHalf: HTMLElement;
+  /** Seis letras da cópia de cima, na ordem B R A S I L. */
+  topLetters: HTMLElement[];
+  /** Seis letras da cópia de baixo, nas mesmas posições. */
+  bottomLetters: HTMLElement[];
+  hint: HTMLElement;
+}
+
+/**
+ * FASE 1 — as letras sobem de trás dos seus recortes e formam BRASIL.
+ * Roda sozinha assim que a fonte carrega.
+ */
+export function createEntranceTimeline(
+  refs: IntroRefs,
+  reduced: boolean,
+  onFormed: () => void,
+): gsap.core.Timeline {
+  const { topLetters, bottomLetters, hint } = refs;
+
+  const pairs = topLetters.map((top, index) => [top, bottomLetters[index]]);
+
+  const entrance = gsap.timeline({ onComplete: onFormed });
+
+  const formedAt = addLettersEntrance(
+    entrance,
+    pairs,
+    reduced ? REDUCED_ENTRANCE_TIMING : ENTRANCE_TIMING,
+  );
+
+  /*
+    A palavra permanece inteira e parada. A pausa existe para o usuário
+    reconhecer a palavra antes de qualquer outra coisa acontecer — e o convite
+    para rolar só aparece depois dela, nunca durante a formação.
+  */
+  const pause = reduced ? REDUCED_RECOGNITION_PAUSE : RECOGNITION_PAUSE;
+
+  entrance.fromTo(
+    hint,
+    { autoAlpha: 0, y: 10 },
+    { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" },
+    formedAt + pause,
+  );
+
+  return entrance;
+}
+
+/**
+ * FASE 2 — a palavra se parte ao meio e revela a Hero.
+ *
+ * Pausada: quem a move é o ScrollTrigger. Só pode ser criada com o scroll já
+ * destravado e a palavra já visível.
+ */
+export function createOpeningTimeline(refs: IntroRefs, cutLine: number): gsap.core.Timeline {
+  return createWordScrollReveal(refs, cutLine);
+}

@@ -1,0 +1,185 @@
+# TECNOLOGIAS E IMPLEMENTAÇÃO
+
+## Stack principal
+
+Utilizar:
+
+* React;
+* Vite;
+* TypeScript;
+* GSAP;
+* GSAP ScrollTrigger;
+* CSS moderno.
+
+O GSAP será a biblioteca principal de animação.
+
+Não utilizar múltiplas bibliotecas de animação sem necessidade.
+
+## GSAP
+
+Utilizar GSAP para:
+
+* Animação de abertura;
+* Timelines;
+* Entrada de textos;
+* Revelação de imagens;
+* Movimento de camadas;
+* Parallax do mouse;
+* Cursor personalizado;
+* Efeito magnético;
+* Transições;
+* Animações de scroll.
+
+Utilizar:
+
+```javascript
+gsap.timeline()
+
+gsap.to()
+
+gsap.from()
+
+gsap.fromTo()
+```
+
+Utilizar ScrollTrigger para:
+
+```javascript
+ScrollTrigger.create()
+
+scrollTrigger: {
+  trigger: element,
+  start: "top 80%",
+  end: "bottom top",
+  scrub: true
+}
+```
+
+## Organização das animações
+
+Não colocar todas as animações dentro de um único arquivo.
+
+Separar:
+
+```text
+src/
+
+├── animations/
+│   ├── loader.ts
+│   ├── hero.ts
+│   ├── textReveal.ts
+│   ├── imageReveal.ts
+│   ├── mouseParallax.ts
+│   ├── magnetic.ts
+│   └── scroll.ts
+│
+├── hooks/
+│   ├── useGSAPAnimation.ts
+│   ├── useMousePosition.ts
+│   ├── useReducedMotion.ts
+│   └── useMediaQuery.ts
+```
+
+## Mouse
+
+Criar apenas um sistema global para rastrear o mouse.
+
+Não criar vários listeners desnecessários.
+
+Utilizar:
+
+* requestAnimationFrame;
+* Interpolação;
+* Valores normalizados;
+* Movimento suave.
+
+A posição do mouse deve ser utilizada para movimentar camadas em diferentes intensidades.
+
+## Scroll
+
+Utilizar GSAP ScrollTrigger.
+
+O scroll deve:
+
+* Revelar conteúdo;
+* Criar continuidade;
+* Alterar a composição;
+* Conectar as seções.
+
+Não criar animações aleatórias.
+
+## Performance
+
+Priorizar:
+
+* transform;
+* opacity;
+* will-change apenas quando necessário.
+
+Evitar animar:
+
+* top;
+* left;
+* width;
+* height.
+
+Evitar:
+
+* Recalcular posições em todos os frames;
+* Criar timelines duplicadas;
+* Executar animações fora da viewport.
+
+## Imagens
+
+Os assets produzidos no Canva devem ser:
+
+* Otimizados;
+* Carregados de forma progressiva;
+* Utilizados com dimensões definidas;
+* Carregados sob demanda quando possível.
+
+## Responsividade
+
+Desktop:
+
+Experiência completa.
+
+Tablet:
+
+Reduzir alguns movimentos.
+
+Celular:
+
+* Desativar cursor personalizado;
+* Desativar interações dependentes de hover;
+* Reduzir parallax;
+* Simplificar animações;
+* Manter a identidade visual.
+
+## Acessibilidade
+
+Implementar:
+
+* prefers-reduced-motion;
+* Navegação por teclado;
+* Estados de foco;
+* Textos alternativos;
+* Contraste adequado.
+
+Quando prefers-reduced-motion estiver ativo:
+
+* Reduzir movimentos;
+* Desativar parallax contínuo;
+* Remover animações automáticas não essenciais.
+
+## Regra principal
+
+O Canva produz a identidade visual e os assets.
+
+O React organiza a interface.
+
+O GSAP cria movimento e interatividade.
+
+O CSS controla o layout e a aparência.
+
+Cada ferramenta deve possuir uma responsabilidade clara.

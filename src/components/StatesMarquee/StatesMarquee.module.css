@@ -1,0 +1,107 @@
+/*
+  Faixa horizontal infinita com as unidades federativas.
+
+  As cores vêm dos tokens do projeto, e não de hexadecimais soltos: o amarelo da
+  identidade é #FFD500. A receita sugeria #F7D117, mas o DESIGN SYSTEM pede que
+  nada use valores fora da escala — e a diferença entre os dois é imperceptível
+  ao lado do ganho de manter uma única fonte de verdade para a paleta.
+*/
+.marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-yellow-500);
+  color: var(--color-green-950);
+  padding-block: clamp(var(--space-4), 1.6vw, var(--space-6));
+  /* Corta o contexto de empilhamento da seção anterior sem vazar a trilha. */
+  isolation: isolate;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/*
+  Os dois grupos são idênticos em conteúdo, largura e espaçamento. Qualquer
+  diferença entre eles apareceria como um solavanco no ponto de emenda do laço.
+*/
+.group {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  /* Um único gap dá o mesmo respiro entre nome e separador em toda a faixa,
+     inclusive na emenda entre os dois grupos. */
+  gap: clamp(var(--space-3), 1vw, var(--space-5));
+  /* O gap do flex não se aplica nas extremidades; este padding garante que a
+     emenda entre os grupos tenha o mesmo espaçamento do resto. */
+  padding-inline-end: clamp(var(--space-3), 1vw, var(--space-5));
+}
+
+.item {
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  /* Uma linha por estado: "RIO GRANDE DO SUL" nunca pode quebrar em duas. */
+  white-space: nowrap;
+  font-size: clamp(1.4rem, 2.8vw, 3rem);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  opacity: 1;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.35s ease;
+}
+
+/*
+  Com o ponteiro sobre a faixa, os nomes recuam e só o que está sob o cursor
+  fica cheio. É o destaque discreto que a direção pede — sem card, sem tooltip.
+*/
+.marquee:hover .item {
+  opacity: 0.45;
+}
+
+.item:hover {
+  opacity: 1;
+  color: var(--color-black);
+  transform: scale(1.08);
+}
+
+/* Menor que os nomes, com respiro dos dois lados, sem competir com eles. */
+.separator {
+  flex: 0 0 auto;
+  font-size: clamp(0.55rem, 0.9vw, 0.9rem);
+  line-height: 1;
+  opacity: 0.55;
+  user-select: none;
+}
+
+/*
+  Estado parado, decidido pelo hook e anunciado via data-static.
+
+  Não é uma media query de propósito: `@media (prefers-reduced-motion)` não
+  enxerga o override de `?motion=full`, e CSS e JavaScript acabavam discordando
+  — a faixa animava e mostrava barra de rolagem ao mesmo tempo.
+
+  A rolagem horizontal manual entra no lugar do movimento, para que os nomes
+  fora da tela continuem alcançáveis.
+*/
+.marquee[data-static="true"] {
+  overflow-x: auto;
+}
+
+.marquee[data-static="true"] .track {
+  transform: none !important;
+  will-change: auto;
+}
+
+.marquee[data-static="true"] .item {
+  transition: none;
+}
+
+.marquee[data-static="true"] .item:hover {
+  transform: none;
+}

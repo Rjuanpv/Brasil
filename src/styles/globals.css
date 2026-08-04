@@ -1,0 +1,101 @@
+html {
+  background-color: var(--color-green-950);
+  /* O scroll suave é do Lenis. O nativo brigaria com ele. */
+  scroll-behavior: auto;
+  /*
+    Reserva a calha da barra de rolagem desde sempre. Sem isso, o momento em que
+    a trava do scroll sai e a barra aparece encolhe a área útil e joga a palavra
+    BRASIL alguns pixels para a esquerda — um salto visível bem no meio da
+    abertura.
+  */
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--body-md);
+  color: var(--color-cream);
+  background-color: var(--color-green-950);
+  overflow-x: hidden;
+}
+
+/*
+  Trava do scroll durante a formação da palavra.
+
+  Sem altura fixa de propósito: alterar a altura do documento faria o
+  ScrollTrigger medir uma página não rolável e o pin da Hero nasceria errado.
+  Com Lenis ativo, quem trava de fato é `lenis.stop()` — ver setScrollLocked.
+*/
+body[data-locked="true"] {
+  overflow: hidden;
+}
+
+/* Cursor nativo some só quando o customizado está de fato ativo. */
+body[data-custom-cursor="true"],
+body[data-custom-cursor="true"] * {
+  cursor: none;
+}
+
+/* ---- Tipografia de display ---- */
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+}
+
+/* ---- Utilidades editoriais ---- */
+.label {
+  font-size: var(--label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---- Foco ---- */
+:focus-visible {
+  outline: 2px solid var(--color-yellow-500);
+  outline-offset: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: calc(var(--z-loader) + 1);
+  padding: var(--space-3) var(--space-5);
+  background: var(--color-yellow-500);
+  color: var(--color-black);
+  font-size: var(--label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+::selection {
+  background: var(--color-yellow-500);
+  color: var(--color-black);
+}
+

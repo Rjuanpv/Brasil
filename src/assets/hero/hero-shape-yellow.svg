@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" width="700" height="700" role="presentation">
+  <!-- PLACEHOLDER — substituir por hero-shape-yellow.svg exportado do Canva -->
+  <!-- Losango deformado: geometria da bandeira reinterpretada, com arestas orgânicas -->
+  <path
+    fill="#FFD500"
+    d="M352 18
+       C 400 96, 520 190, 618 268
+       C 690 326, 686 372, 612 434
+       C 520 510, 402 604, 350 682
+       C 300 606, 178 508, 86 432
+       C 14 372, 12 326, 84 268
+       C 182 190, 302 94, 352 18 Z"
+  />
+</svg>

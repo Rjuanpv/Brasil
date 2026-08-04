@@ -1,0 +1,225 @@
+/*
+  A Hero preenche o palco da Intro em vez de definir a própria altura: quem
+  controla a dimensão da tela é o palco fixado, e duas fontes de verdade para a
+  mesma altura divergiriam no celular, onde 100vh e a viewport real diferem.
+*/
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-green-950);
+  isolation: isolate;
+}
+
+/* ============================================================
+   Camadas
+   Cada uma é um elemento próprio, animado separadamente.
+   A profundidade vem da ordem de empilhamento e da diferença de
+   deslocamento — não de sombra.
+   ============================================================ */
+
+
+.hero__background {
+  inset: 0;
+  z-index: var(--z-background);
+}
+
+.hero__background > img {
+  object-fit: cover;
+}
+
+/* Círculo azul sangrando pela borda superior direita */
+.hero__blue {
+  top: -18vh;
+  right: -14vw;
+  width: clamp(340px, 46vw, 720px);
+  aspect-ratio: 1;
+  z-index: var(--z-shape-back);
+  opacity: 0.85;
+}
+
+/* Imagem principal: painel em retrato, deslocado do centro */
+.hero__main {
+  top: 50%;
+  right: clamp(var(--space-5), 8vw, var(--space-10));
+  translate: 0 -50%;
+  width: clamp(260px, 30vw, 460px);
+  height: clamp(360px, 62vh, 640px);
+  z-index: var(--z-image);
+  overflow: hidden;
+}
+
+.hero__main > img {
+  object-fit: cover;
+}
+
+/*
+  Forma amarela: entra pela esquerda e cruza as letras do título — é esse
+  cruzamento de camadas que denuncia a profundidade da composição.
+
+  Sangra bem mais para fora do que antes: só a ponta direita alcança a
+  tipografia. Na posição anterior o losango cobria a primeira letra inteira e
+  "EM MOVIMENTO" era lido como "M MOVIMENTO". Cruzar uma letra é profundidade;
+  apagar uma é defeito.
+*/
+.hero__yellow {
+  bottom: clamp(200px, 30vh, 380px);
+  left: clamp(-190px, -13vw, -110px);
+  width: clamp(180px, 22vw, 320px);
+  aspect-ratio: 1;
+  z-index: var(--z-shape-front);
+}
+
+/*
+  Grão por cima de tudo, sem competir com os títulos.
+
+  Azulejo repetido em vez de imagem esticada, e sem mix-blend-mode: o blend
+  obrigaria a recompor toda a composição abaixo a cada frame. Com opacidade
+  baixa o resultado é equivalente.
+*/
+.hero__texture {
+  position: absolute;
+  inset: 0;
+  z-index: var(--z-texture);
+  background-repeat: repeat;
+  background-size: 180px 180px;
+  opacity: 0.055;
+  pointer-events: none;
+}
+
+/* ============================================================
+   Tipografia
+   ============================================================ */
+
+/*
+  Sem z-index próprio, e sem transform: assim este wrapper NÃO cria contexto de
+  empilhamento, e o título e a chamada disputam profundidade diretamente com as
+  formas da composição. É o que permite a forma amarela passar entre os dois.
+*/
+.hero__content {
+  position: absolute;
+  inset: auto auto 0 0;
+  width: 100%;
+  padding: 0 var(--grid-margin) clamp(var(--space-8), 12vh, var(--space-11));
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+}
+
+.hero__title {
+  position: relative;
+  z-index: var(--z-type); /* abaixo da forma amarela — ela cruza as letras */
+  margin: 0;
+  color: var(--color-cream);
+}
+
+/* Acima de todas as formas: o texto de apoio e o botão nunca são obstruídos. */
+.hero__copy {
+  position: relative;
+  z-index: var(--z-foreground);
+  display: grid;
+  gap: var(--space-5);
+  justify-items: start;
+}
+
+.hero__title-line {
+  display: block;
+  overflow: hidden;
+  /* Escala extrema: BRASIL passa da largura útil e é cortado pela borda direita
+     da viewport, como a direção de arte pede. */
+  font-size: var(--display-xl);
+  white-space: nowrap;
+}
+
+.hero__title-line--sub {
+  font-size: var(--heading-xl);
+  color: var(--color-yellow-500);
+}
+
+.hero__support {
+  display: block;
+  overflow: hidden;
+  max-width: 34ch;
+  font-size: var(--body-lg);
+  color: var(--color-cream);
+  opacity: 0.82;
+}
+
+.hero__action {
+  margin-top: var(--space-3);
+}
+
+/* Indicador de scroll — a camada mais próxima, com o maior deslocamento */
+.hero__scroll-hint {
+  position: absolute;
+  right: var(--grid-margin);
+  bottom: clamp(var(--space-6), 6vh, var(--space-8));
+  z-index: var(--z-foreground);
+  color: var(--color-cream);
+  opacity: 0.55;
+  writing-mode: vertical-rl;
+  letter-spacing: 0.2em;
+}
+
+/* ============================================================
+   Responsivo
+   A identidade e a escala tipográfica se mantêm; a composição
+   é que se reorganiza.
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .hero__main {
+    right: var(--space-5);
+    width: clamp(220px, 34vw, 340px);
+    height: 52vh;
+    opacity: 0.9;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero__main {
+    top: 26%;
+    right: -8vw;
+    translate: none;
+    width: 58vw;
+    height: 42vh;
+  }
+
+  .hero__blue {
+    top: -10vh;
+    right: -28vw;
+    width: 70vw;
+  }
+
+  .hero__yellow {
+    bottom: auto;
+    top: 14vh;
+    left: -12vw;
+    width: 42vw;
+  }
+
+  /* No celular a palavra não é cortada: a força vem da escala, não do recorte. */
+  .hero__title-line {
+    font-size: var(--display-md);
+  }
+
+  .hero__title-line--sub {
+    font-size: var(--heading-lg);
+  }
+
+  .hero__scroll-hint {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__content {
+    gap: var(--space-4);
+  }
+
+  .hero__support {
+    font-size: var(--body-md);
+    max-width: 28ch;
+  }
+}

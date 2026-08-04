@@ -1,0 +1,230 @@
+# PRODUÇÃO VISUAL — CANVA
+
+## Papel do Canva
+
+O Canva será utilizado para criar e preparar os elementos visuais do projeto “Brasil em Movimento”.
+
+O Canva não será utilizado para construir a interface final do site.
+
+A interface, a responsividade, as interações e as animações serão implementadas em código.
+
+O Canva será utilizado como ferramenta de direção de arte e produção de assets.
+
+## Objetivos
+
+Produzir materiais visuais que reforcem:
+
+* Energia;
+* Movimento;
+* Diversidade;
+* Cultura;
+* Natureza;
+* Contrastes;
+* Identidade brasileira;
+* Estética contemporânea.
+
+Os materiais devem seguir a direção de arte definida no projeto.
+
+Não criar peças visuais isoladas sem relação com o sistema.
+
+Todos os assets devem parecer parte da mesma identidade.
+
+## Assets a produzir
+
+Criar:
+
+### 1. Imagens principais
+
+Produzir imagens para:
+
+* Hero;
+* Territórios;
+* Ritmos;
+* Natureza;
+* Cidades;
+* Futuro.
+
+As imagens devem possuir:
+
+* Composição editorial;
+* Alto contraste;
+* Espaços para textos;
+* Recortes ousados;
+* Possibilidade de animação;
+* Identidade visual consistente.
+
+Evitar imagens turísticas genéricas.
+
+### 2. Formas gráficas
+
+Criar:
+
+* Círculos;
+* Losangos;
+* Linhas;
+* Blocos;
+* Formas abstratas;
+* Texturas;
+* Elementos inspirados na geometria brasileira.
+
+As formas podem fazer referência à bandeira, mas não devem reproduzi-la diretamente.
+
+### 3. Texturas
+
+Criar texturas inspiradas em:
+
+* Vegetação;
+* Água;
+* Areia;
+* Concreto;
+* Arquitetura;
+* Movimento;
+* Ondas;
+* Mapas;
+* Relevos.
+
+As texturas devem ser discretas.
+
+Não competir com os títulos.
+
+### 4. Composições editoriais
+
+Criar composições com:
+
+* Imagens;
+* Tipografia;
+* Formas;
+* Espaço negativo;
+* Sobreposição.
+
+As composições devem funcionar como base visual para as seções.
+
+## Regras visuais
+
+Utilizar:
+
+* Verde profundo;
+* Amarelo energético;
+* Azul profundo;
+* Branco quente;
+* Preto.
+
+Não utilizar todas as cores ao mesmo tempo.
+
+Cada composição deve possuir:
+
+* Uma cor dominante;
+* Uma cor de destaque;
+* Uma cor de apoio.
+
+## Exportação
+
+Exportar imagens em:
+
+* WebP;
+* PNG quando houver transparência;
+* SVG para formas vetoriais simples.
+
+Evitar JPG quando WebP for compatível.
+
+Utilizar:
+
+* Resolução adequada;
+* Arquivos otimizados;
+* Dimensões próximas ao uso real.
+
+Não exportar imagens enormes sem necessidade.
+
+## Organização
+
+Utilizar esta estrutura:
+
+```text
+src/assets/
+
+├── hero/
+│   ├── hero-main.webp
+│   ├── hero-background.webp
+│   ├── hero-shape.svg
+│   └── hero-texture.webp
+│
+├── territories/
+│
+├── rhythms/
+│
+├── nature/
+│
+├── cities/
+│
+├── future/
+│
+└── shared/
+```
+
+Utilizar nomes claros.
+
+Evitar:
+
+imagem-final.png
+
+imagem-final-2.png
+
+imagem-nova-agora.png
+
+Utilizar nomes descritivos.
+
+Exemplo:
+
+hero-brazil-city-layer.webp
+
+nature-amazon-texture.webp
+
+cities-sao-paulo-night.webp
+
+## Preparação para animação
+
+Os elementos que serão animados separadamente devem ser exportados em arquivos separados.
+
+Exemplo:
+
+Não exportar uma composição inteira com:
+
+* Fundo;
+* Pessoa;
+* Formas;
+* Texto;
+* Elementos decorativos.
+
+Exportar:
+
+background.webp
+
+subject.webp
+
+yellow-shape.svg
+
+blue-circle.svg
+
+texture.webp
+
+Isso permite criar profundidade com GSAP.
+
+## Regra principal
+
+O Canva deve produzir os elementos visuais.
+
+O GSAP deve criar o movimento.
+
+Não criar animações importantes apenas dentro do Canva quando elas precisarem ser interativas.
+
+As animações do site devem responder ao:
+
+* Mouse;
+* Scroll;
+* Hover;
+* Toque;
+* Navegação.
+
+O Canva fornece as camadas.
+
+O código transforma as camadas em uma experiência interativa.

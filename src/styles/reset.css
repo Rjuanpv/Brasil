@@ -1,0 +1,80 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  line-height: 1.5;
+  /*
+    Sem `-webkit-font-smoothing: antialiased` de propósito.
+
+    A regra desliga o antialiasing subpixel e força escala de cinza. Ela se
+    propagou por convenção em resets, mas afina os glifos e endurece as bordas —
+    discreto em corpo de texto, bem visível em display do tamanho do título da
+    Hero. Deixar o navegador escolher entrega bordas mais suaves.
+
+    `optimizeLegibility` também saiu: ele ativa ligaduras e kerning custosos e,
+    em blocos grandes, é conhecido por degradar a renderização em vez de
+    melhorá-la. O kerning já vem ligado por padrão.
+  */
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#root {
+  isolation: isolate;
+}

@@ -1,0 +1,184 @@
+# TECNOLOGIAS E ARQUITETURA
+
+## Stack
+
+Utilizar:
+
+* React;
+* Vite;
+* TypeScript;
+* GSAP;
+* GSAP ScrollTrigger;
+* Lenis;
+* CSS moderno.
+
+Não adicionar bibliotecas sem necessidade.
+
+## Estrutura
+
+```text
+src/
+
+├── components/
+│   ├── Loader/
+│   ├── Navigation/
+│   ├── CustomCursor/
+│   ├── MagneticButton/
+│   ├── SectionTitle/
+│   └── ImageReveal/
+│
+├── sections/
+│   ├── Hero/
+│   ├── Manifesto/
+│   ├── Territories/
+│   ├── Rhythms/
+│   ├── Nature/
+│   ├── Cities/
+│   ├── Future/
+│   └── Closing/
+│
+├── hooks/
+│   ├── useMouseParallax.ts
+│   ├── useMagneticEffect.ts
+│   ├── useSmoothScroll.ts
+│   └── useReducedMotion.ts
+│
+├── styles/
+│   ├── tokens.css
+│   ├── reset.css
+│   ├── globals.css
+│   └── animations.css
+│
+├── assets/
+│   ├── images/
+│   ├── videos/
+│   └── fonts/
+│
+├── App.tsx
+└── main.tsx
+```
+
+## Componentização
+
+Cada seção deve ser independente.
+
+Evitar:
+
+* Um arquivo gigante;
+* Animações misturadas com toda a estrutura;
+* Código duplicado.
+
+Criar componentes reutilizáveis.
+
+## GSAP
+
+Usar:
+
+* gsap.context;
+* useLayoutEffect;
+* ScrollTrigger.
+
+Garantir limpeza correta das animações.
+
+Exemplo de comportamento esperado:
+
+* Criar timeline;
+* Registrar ScrollTrigger;
+* Destruir animações ao desmontar;
+* Evitar duplicação durante hot reload.
+
+## Lenis
+
+Utilizar para scroll suave.
+
+Integrar Lenis com GSAP.
+
+Garantir:
+
+* Scroll natural;
+* Compatibilidade com teclado;
+* Compatibilidade com acessibilidade.
+
+## Mouse
+
+Utilizar apenas um listener global.
+
+Atualizar valores usando:
+
+requestAnimationFrame.
+
+Não executar animações pesadas diretamente em cada evento mousemove.
+
+Desativar efeitos em:
+
+* Touch devices;
+* Dispositivos com pouca precisão;
+* Usuários com redução de movimento.
+
+## Imagens
+
+Utilizar:
+
+* WebP;
+* AVIF quando possível;
+* Lazy loading;
+* Dimensões definidas.
+
+Evitar imagens grandes sem otimização.
+
+## Responsividade
+
+Criar breakpoints:
+
+```css
+--mobile: 480px;
+--tablet: 768px;
+--desktop: 1024px;
+--wide: 1440px;
+```
+
+A interface deve ser pensada primeiro para desktop, mas totalmente adaptada para celular.
+
+No celular:
+
+* Remover cursor personalizado;
+* Reduzir parallax;
+* Simplificar animações;
+* Manter títulos fortes;
+* Ajustar imagens;
+* Substituir hover por toque.
+
+## Acessibilidade
+
+Implementar:
+
+* HTML semântico;
+* Navegação por teclado;
+* Estados de foco;
+* Contraste adequado;
+* Textos alternativos;
+* prefers-reduced-motion.
+
+Não sacrificar acessibilidade por estética.
+
+## Qualidade
+
+Antes de finalizar:
+
+* Verificar erros do TypeScript;
+* Verificar console;
+* Testar desktop;
+* Testar tablet;
+* Testar celular;
+* Testar performance;
+* Testar scroll;
+* Testar navegação por teclado;
+* Testar redução de movimento.
+
+## Regra principal
+
+A experiência deve parecer sofisticada, mas o código deve ser organizado, reutilizável, responsivo e performático.
+
+Não criar efeitos complexos apenas para impressionar.
+
+Todo movimento deve contribuir para a narrativa “Brasil em Movimento”.

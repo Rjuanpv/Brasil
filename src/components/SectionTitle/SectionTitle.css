@@ -1,0 +1,24 @@
+.section-title {
+  margin: 0;
+  font-size: var(--heading-xl);
+}
+
+/*
+  Cada linha é o próprio recorte da máscara: o texto sobe de dentro dela.
+  `overflow: hidden` com `line-height` folgado, senão o glifo do Anton — que
+  ultrapassa a caixa de linha compacta do design system — seria cortado já em
+  repouso.
+*/
+.section-title__line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.02;
+}
+
+.section-title__text {
+  display: block;
+}
+
+.section-title__line--accent {
+  color: var(--color-yellow-500);
+}

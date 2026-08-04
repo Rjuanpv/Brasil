@@ -1,0 +1,20 @@
+<!-- width/height explícitos: sem eles o SVG não tem dimensão intrínseca, e
+     carregado em <img> para virar textura WebGL reporta naturalWidth 0. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" preserveAspectRatio="xMidYMid slice" role="presentation">
+  <!-- PLACEHOLDER — substituir por hero-background.webp exportado do Canva -->
+  <defs>
+    <radialGradient id="field" cx="62%" cy="38%" r="78%">
+      <stop offset="0%" stop-color="#0A5A3D" />
+      <stop offset="55%" stop-color="#063D2B" />
+      <stop offset="100%" stop-color="#042719" />
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#field)" />
+  <!-- Linhas de relevo: sugerem território sem virar mapa -->
+  <g stroke="#087A4B" stroke-width="1.5" fill="none" opacity="0.16">
+    <path d="M-60 700 C 260 620, 420 760, 720 660 S 1240 540, 1660 620" />
+    <path d="M-60 760 C 280 690, 440 820, 740 720 S 1260 600, 1660 680" />
+    <path d="M-60 820 C 300 760, 460 880, 760 780 S 1280 660, 1660 740" />
+    <path d="M-60 640 C 240 560, 400 700, 700 600 S 1220 480, 1660 560" />
+  </g>
+</svg>

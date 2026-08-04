@@ -1,0 +1,65 @@
+.magnetic {
+  display: inline-block;
+  will-change: transform;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--body-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius-2);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+/* ---- Primário ---- */
+.btn--primary {
+  background: var(--color-yellow-500);
+  color: var(--color-black);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  background: var(--color-cream);
+}
+
+.btn--primary:active {
+  background: #e6c000;
+}
+
+/* ---- Secundário ---- */
+.btn--secondary {
+  background: transparent;
+  color: var(--color-cream);
+  border: 1px solid currentColor;
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+  background: var(--color-cream);
+  color: var(--color-green-950);
+}
+
+.btn--secondary:active {
+  background: var(--color-yellow-500);
+  border-color: var(--color-yellow-500);
+  color: var(--color-black);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn[data-loading="true"] {
+  opacity: 0.7;
+  pointer-events: none;
+}

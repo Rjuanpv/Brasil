@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="presentation">
+  <!-- PLACEHOLDER — substituir por hero-shape-blue.svg exportado do Canva -->
+  <!-- Círculo: referência à bandeira sem reproduzi-la -->
+  <circle cx="300" cy="300" r="290" fill="#073B7A" />
+  <circle cx="300" cy="300" r="290" fill="none" stroke="#0A4F9E" stroke-width="2" opacity="0.5" />
+</svg>

@@ -1,0 +1,227 @@
+# DESIGN SYSTEM
+
+## Objetivo
+
+Criar um sistema visual consistente para que todas as páginas e seções pareçam parte da mesma experiência.
+
+O sistema deve permitir variedade visual sem perder identidade.
+
+## Design tokens
+
+### Cores
+
+```css
+:root {
+  --color-green-950: #063D2B;
+  --color-green-700: #087A4B;
+
+  --color-yellow-500: #FFD500;
+
+  --color-blue-900: #073B7A;
+
+  --color-cream: #F4F0E6;
+  --color-black: #080A09;
+}
+```
+
+### Tipografia
+
+```css
+:root {
+  --font-display: "Anton", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+```
+
+### Escala tipográfica
+
+```css
+:root {
+  --display-xl: clamp(7rem, 18vw, 20rem);
+  --display-lg: clamp(5rem, 12vw, 14rem);
+  --display-md: clamp(4rem, 9vw, 10rem);
+
+  --heading-xl: clamp(3rem, 7vw, 7rem);
+  --heading-lg: clamp(2.5rem, 5vw, 5rem);
+  --heading-md: clamp(2rem, 3vw, 3.5rem);
+
+  --body-lg: 1.25rem;
+  --body-md: 1rem;
+  --body-sm: 0.875rem;
+  --label: 0.75rem;
+}
+```
+
+### Regras para Anton
+
+```css
+.display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+}
+```
+
+Não usar Anton em textos longos.
+
+### Espaçamento
+
+Utilizar uma escala fixa:
+
+```css
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 160px;
+}
+```
+
+Evitar valores aleatórios.
+
+## Grid
+
+Desktop:
+
+* 12 colunas;
+* Margens responsivas;
+* Espaçamento consistente.
+
+Tablet:
+
+* 8 colunas.
+
+Celular:
+
+* 4 colunas.
+
+O grid deve permitir composições assimétricas.
+
+## Botões
+
+### Botão primário
+
+Texto:
+
+EXPLORE →
+
+Características:
+
+* Fundo amarelo;
+* Texto preto;
+* Letras maiúsculas;
+* Fonte Inter;
+* Peso médio ou semibold;
+* Sem sombra pesada;
+* Cantos retos ou pouco arredondados.
+
+Interação:
+
+* Efeito magnético;
+* Pequeno deslocamento;
+* Escala discreta;
+* Transição rápida e suave.
+
+### Botão secundário
+
+Características:
+
+* Fundo transparente;
+* Borda de 1 px;
+* Texto claro;
+* Hover com preenchimento.
+
+## Navegação
+
+A navegação deve ser minimalista.
+
+Elementos:
+
+* Logo ou palavra BRASIL;
+* Indicador de seção;
+* Botão MENU.
+
+Não criar uma barra grande.
+
+No desktop, a navegação pode ficar fixa.
+
+No celular, utilizar um menu em tela cheia.
+
+## Cards
+
+Evitar criar uma interface baseada em cards.
+
+Quando forem necessários:
+
+* Usar imagens grandes;
+* Bordas discretas;
+* Pouco arredondamento;
+* Tipografia forte;
+* Hover com movimento;
+* Sem sombras genéricas.
+
+## Ícones
+
+Utilizar ícones simples, geométricos e minimalistas.
+
+Evitar:
+
+* Ícones coloridos;
+* Ícones 3D;
+* Estilos diferentes na mesma interface.
+
+## Bordas
+
+Utilizar:
+
+* 0 px;
+* 2 px;
+* 4 px;
+* 8 px no máximo.
+
+Evitar cantos excessivamente arredondados.
+
+## Sombras
+
+Usar sombras apenas quando necessárias.
+
+Priorizar:
+
+* Contraste;
+* Sobreposição;
+* Mudança de escala;
+* Profundidade por camadas.
+
+Não usar sombras grandes de estilo SaaS.
+
+## Estados
+
+Todos os elementos interativos devem ter:
+
+* Estado padrão;
+* Hover;
+* Focus;
+* Active;
+* Estado de carregamento.
+
+O foco deve ser visível e acessível.
+
+## Responsividade
+
+O design deve manter a identidade em telas pequenas.
+
+No celular:
+
+* Reduzir animações complexas;
+* Evitar textos ilegíveis;
+* Reorganizar composições;
+* Preservar a escala visual;
+* Manter interações por toque.

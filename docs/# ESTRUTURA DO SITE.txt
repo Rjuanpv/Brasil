@@ -1,0 +1,197 @@
+# ESTRUTURA DO SITE
+
+## Página única
+
+Criar uma experiência de página única com navegação por seções.
+
+A página deve possuir uma narrativa contínua.
+
+## 01 — LOADER
+
+Objetivo:
+
+Criar expectativa e introduzir a identidade.
+
+Elementos:
+
+* Fundo verde;
+* Palavra BRASIL;
+* Elementos gráficos;
+* Transição para Hero.
+
+Duração máxima:
+
+2,8 segundos.
+
+Permitir pular ou reduzir a animação quando necessário.
+
+## 02 — HERO
+
+Título:
+
+BRASIL
+
+EM MOVIMENTO
+
+Texto de apoio:
+
+Um país de ritmos, contrastes e transformações.
+
+Botão:
+
+EXPLORE ↓
+
+Interações:
+
+* Parallax;
+* Cursor;
+* Profundidade;
+* Movimento de imagens;
+* Formas em camadas.
+
+A Hero deve ocupar 100vh.
+
+## 03 — MANIFESTO
+
+Título:
+
+O BRASIL
+
+NÃO PARA.
+
+Objetivo:
+
+Apresentar a ideia central.
+
+Utilizar:
+
+* Texto grande;
+* Números;
+* Imagens;
+* Animações de entrada.
+
+## 04 — TERRITÓRIOS
+
+Título:
+
+UM PAÍS.
+
+MUITOS MUNDOS.
+
+Criar uma representação abstrata do Brasil.
+
+Ao interagir:
+
+* Destacar regiões;
+* Mostrar imagens;
+* Revelar nomes;
+* Alterar a composição.
+
+Não criar um mapa escolar.
+
+## 05 — RITMOS
+
+Título:
+
+O BRASIL
+
+SE MOVE
+
+EM RITMO.
+
+Apresentar:
+
+* Música;
+* Dança;
+* Cultura;
+* Festas;
+* Criatividade.
+
+Usar:
+
+* Movimento;
+* Sobreposição;
+* Tipografia;
+* Ritmo visual.
+
+## 06 — NATUREZA
+
+Título:
+
+ONDE A VIDA
+
+NÃO PARA.
+
+Apresentar:
+
+* Florestas;
+* Água;
+* Praias;
+* Cerrado;
+* Biodiversidade.
+
+Criar transições orgânicas.
+
+## 07 — CIDADES
+
+Título:
+
+CIDADES
+
+EM MOVIMENTO.
+
+Apresentar:
+
+* São Paulo;
+* Rio de Janeiro;
+* Salvador;
+* Curitiba;
+* Brasília.
+
+Utilizar nomes grandes e composições variáveis.
+
+## 08 — FUTURO
+
+Título:
+
+O FUTURO
+
+TAMBÉM
+
+É BRASIL.
+
+Apresentar:
+
+* Tecnologia;
+* Criatividade;
+* Inovação;
+* Transformação.
+
+A estética deve ficar mais escura e futurista.
+
+## 09 — ENCERRAMENTO
+
+Texto:
+
+O BRASIL
+
+CONTINUA
+
+EM MOVIMENTO.
+
+Botão:
+
+VOLTAR AO INÍCIO ↑
+
+Criar uma transição final marcante.
+
+## Rodapé
+
+Elementos:
+
+* Nome do projeto;
+* Créditos;
+* Ano;
+* Links.
+
+Manter minimalista.

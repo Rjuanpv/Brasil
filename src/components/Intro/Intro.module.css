@@ -1,0 +1,150 @@
+/*
+  A seção só precisa de uma viewport de altura: o espaço de rolagem da abertura
+  é criado pelo pinSpacing do ScrollTrigger, a partir do `end`. Somar 250vh aqui
+  duplicaria a distância.
+*/
+.introScroll {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 640px;
+}
+
+/* O palco fixado durante a abertura. */
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Camada intermediária: a Hero, renderizada desde o início e sempre presente. */
+/*
+  A Hero fica parada durante a abertura — nada de transform aqui, e por isso
+  nada de `will-change`. Promover uma camada que nunca se move só consome
+  memória de GPU.
+*/
+.heroStage {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/*
+  Camadas de transição: dois painéis de viewport inteira, cada um recortado numa
+  metade. Juntos ladrilham a tela em verde e escondem a Hero por completo.
+  Afastando-se, o vão entre eles é a revelação.
+*/
+.half {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: var(--color-green-950);
+  pointer-events: none;
+  will-change: transform;
+}
+
+/*
+  --cut é a linha de corte em px a partir do topo do palco, medida em runtime a
+  partir da tinta dos glifos. O padrão de 50% só vale até a medição acontecer.
+*/
+.half {
+  --cut: 50%;
+}
+
+.top {
+  z-index: 20;
+  clip-path: inset(0 0 calc(100% - var(--cut)) 0);
+}
+
+.bottom {
+  z-index: 10;
+  clip-path: inset(var(--cut) 0 0 0);
+}
+
+/*
+  A palavra. É este layout — natural, centralizado e responsivo — que a formação
+  usa como destino; o espalhamento inicial é medido a partir daqui.
+*/
+.word {
+  margin: 0;
+  display: block;
+  white-space: nowrap;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  /*
+    1.05 e não os 0.82 do design system: aqui cada letra vive dentro de um
+    recorte com overflow hidden, e a 0.82 a caixa da linha fica MENOR que o
+    glifo — o topo do B seria cortado já em repouso. Com 1.05 o glifo cabe
+    inteiro com folga, e a translação de 100% ainda o esconde por completo.
+    Como é uma linha única e centralizada, a altura da caixa não muda nada
+    visualmente.
+  */
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  /* Ocupa boa parte da largura da tela sem nunca cortar lateralmente. */
+  font-size: clamp(3.5rem, 15vw, 16rem);
+  color: var(--color-cream);
+}
+
+/*
+  O recorte de cada letra. `overflow: hidden` é o que esconde a letra enquanto
+  ela ainda está abaixo da linha de base.
+
+  `vertical-align: bottom` alinha os recortes pela base; sem isso os wrappers se
+  alinhariam pela baseline do texto e sobraria uma fresta sob as letras.
+*/
+.letterMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.letter {
+  display: inline-block;
+  will-change: transform;
+  /*
+    Estado inicial no CSS, não no JS: a letra já nasce abaixo do recorte, então
+    a palavra formada nunca aparece por um frame antes de o GSAP assumir.
+  */
+  transform: translateY(100%);
+}
+
+/*
+  Se o GSAP não rodar por qualquer motivo, o conteúdo não pode ficar preso
+  escondido para sempre.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .letter {
+    transform: none;
+  }
+}
+
+/* Convite para rolar. Aparece com a palavra formada e some ao abrir. */
+.hint {
+  position: absolute;
+  bottom: var(--space-8);
+  left: 50%;
+  translate: -50% 0;
+  z-index: 30;
+  color: var(--color-yellow-500);
+  text-align: center;
+  visibility: hidden;
+}
+
+.hint::after {
+  content: "↓";
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--body-md);
+  letter-spacing: 0;
+}
+
+/*
+  Não existe botão de pular: a spec exige que a entrada termine por completo
+  antes de a interação de scroll começar, e a fase automática dura ~2,5s.
+*/

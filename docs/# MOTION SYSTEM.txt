@@ -1,0 +1,237 @@
+# MOTION SYSTEM
+
+## Princípio
+
+O movimento é parte da identidade do projeto.
+
+O site deve parecer vivo.
+
+As animações devem representar:
+
+* Energia;
+* Ritmo;
+* Transformação;
+* Profundidade;
+* Descoberta.
+
+Não usar movimento apenas como decoração.
+
+## Referência
+
+Utilizar o vídeo fornecido como referência para:
+
+* Interação com o mouse;
+* Resposta suave;
+* Profundidade;
+* Movimento em camadas;
+* Ritmo cinematográfico.
+
+Não copiar animações específicas.
+
+Criar movimentos originais.
+
+## Abertura
+
+Duração:
+
+Entre 1,8 e 2,8 segundos.
+
+Sequência:
+
+1. Fundo verde profundo;
+2. Palavra BRASIL aparece;
+3. Letras entram em sequência;
+4. Formas amarelas atravessam a tela;
+5. Uma camada azul é revelada;
+6. A composição principal aparece;
+7. O título EM MOVIMENTO entra;
+8. A interface fica interativa.
+
+Não utilizar apenas fade-in.
+
+Usar:
+
+* Transform;
+* Scale;
+* Translate;
+* Clip-path;
+* Máscaras;
+* Sobreposição.
+
+## Movimento do mouse
+
+A Hero deve possuir parallax em camadas.
+
+Camadas:
+
+Fundo:
+
+Movimento máximo de 5 px.
+
+Formas gráficas:
+
+Movimento máximo de 15 px.
+
+Imagem principal:
+
+Movimento máximo de 30 px.
+
+Tipografia:
+
+Movimento máximo de 10 px.
+
+Elementos próximos:
+
+Movimento máximo de 40 px.
+
+Cada camada deve reagir de forma diferente.
+
+Não fazer os elementos seguirem o cursor diretamente.
+
+Utilizar suavização.
+
+O movimento deve possuir:
+
+* Inércia;
+* Atraso;
+* Interpolação;
+* Retorno suave.
+
+## Cursor personalizado
+
+Criar um cursor visual.
+
+Características:
+
+* Círculo discreto;
+* Movimento suave;
+* Pequeno atraso;
+* Aumenta sobre elementos interativos.
+
+Em imagens:
+
+EXPLORAR
+
+Em links:
+
+VER
+
+Em elementos especiais:
+
+MOVER
+
+O cursor deve ser desativado em dispositivos de toque.
+
+## Efeito magnético
+
+Aplicar em:
+
+* Botões;
+* Links importantes;
+* Indicadores.
+
+O elemento deve se deslocar discretamente em direção ao cursor.
+
+Não exagerar.
+
+Movimento máximo:
+
+8 a 12 px.
+
+## Animações de texto
+
+Textos podem:
+
+* Subir;
+* Ser revelados por máscara;
+* Entrar por linhas;
+* Entrar por palavras;
+* Entrar por caracteres em momentos especiais.
+
+Evitar animar cada letra em todos os títulos.
+
+Usar animação por caracteres apenas em momentos de destaque.
+
+## Scroll
+
+Utilizar ScrollTrigger.
+
+Possíveis efeitos:
+
+* Revelação de textos;
+* Imagens surgindo por clip-path;
+* Parallax;
+* Elementos fixos;
+* Mudanças de escala;
+* Mudanças de cor;
+* Transições entre seções.
+
+O scroll deve conduzir a narrativa.
+
+Não adicionar animações em todos os elementos.
+
+## Curvas
+
+Utilizar:
+
+```javascript
+const easing = {
+  entrance: "power4.out",
+  transition: "power4.inOut",
+  dramatic: "expo.out",
+  smooth: "sine.inOut"
+};
+```
+
+Evitar:
+
+* Linear;
+* Bounce excessivo;
+* Efeito elástico exagerado;
+* Movimentos rápidos demais.
+
+## Duração
+
+```javascript
+const duration = {
+  fast: 0.25,
+  normal: 0.6,
+  slow: 1.0,
+  cinematic: 1.5
+};
+```
+
+## Performance
+
+Priorizar:
+
+* transform;
+* opacity;
+* requestAnimationFrame;
+* animações agrupadas.
+
+Evitar animar:
+
+* width;
+* height;
+* top;
+* left.
+
+Limpar:
+
+* Event listeners;
+* ScrollTriggers;
+* Timelines.
+
+## Acessibilidade
+
+Respeitar:
+
+prefers-reduced-motion
+
+Quando ativado:
+
+* Reduzir parallax;
+* Remover movimentos contínuos;
+* Manter transições essenciais;
+* Evitar animações automáticas excessivas.

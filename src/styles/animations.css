@@ -1,0 +1,71 @@
+/*
+  Estados iniciais e primitivos de máscara.
+  Os valores iniciais ficam no CSS para que nada pisque antes do GSAP assumir;
+  o movimento em si é sempre do GSAP.
+*/
+
+/* ---- Máscara de revelação por linha ---- */
+.reveal-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.reveal-mask > * {
+  display: block;
+  will-change: transform;
+}
+
+/* ---- Split de texto ---- */
+.split-line {
+  display: block;
+  overflow: hidden;
+}
+
+.split-word,
+.split-char {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Preserva o espaço entre palavras, que o inline-block engoliria. */
+.split-space {
+  display: inline-block;
+  white-space: pre;
+}
+
+/* ---- Estados iniciais antes do GSAP ---- */
+[data-animate="mask-up"] .split-word,
+[data-animate="mask-up"] .split-char {
+  transform: translate3d(0, 110%, 0);
+}
+
+[data-animate="fade-up"] {
+  opacity: 0;
+  transform: translate3d(0, var(--space-5), 0);
+}
+
+/* ---- Camadas de parallax ---- */
+.parallax-layer {
+  will-change: transform;
+}
+
+/*
+  Sob redução de movimento, nada entra com estado inicial escondido:
+  o conteúdo precisa estar visível mesmo que o GSAP não rode.
+*/
+@media (prefers-reduced-motion: reduce) {
+  [data-animate="mask-up"] .split-word,
+  [data-animate="mask-up"] .split-char {
+    transform: none;
+  }
+
+  [data-animate="fade-up"] {
+    opacity: 1;
+    transform: none;
+  }
+
+  .parallax-layer {
+    will-change: auto;
+    transform: none !important;
+  }
+}
