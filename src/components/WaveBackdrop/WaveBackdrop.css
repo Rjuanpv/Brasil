@@ -1,0 +1,226 @@
+/*
+  Maré — o fundo da página passa de verde a azul.
+
+  A camada é FIXA e vive atrás de todo o conteúdo. Só aparece nas seções que se
+  declaram transparentes (Natureza e Cidades); as demais têm fundo opaco e a
+  escondem por completo. É isso que permite trocar a cor de fundo da experiência
+  inteira sem tocar em nenhuma seção já construída.
+
+  Nada aqui toca `*`, `body` ou `:root`. O efeito de origem foi escrito como uma
+  página inteira, com resets globais; trazidos para cá, reestilizariam o site.
+  Tudo está escopado sob `.wave-backdrop`.
+*/
+.wave-backdrop {
+  /*
+    Derivadas da paleta com color-mix, e não hexadecimais soltos: o DESIGN
+    SYSTEM pede uma única fonte de verdade para a cor. Trocar --color-blue-900
+    reafina a maré inteira.
+  */
+  --tide-green-deep: color-mix(in srgb, var(--color-green-950) 74%, var(--color-black));
+  --tide-blue: var(--color-blue-900);
+  --tide-blue-deep: color-mix(in srgb, var(--color-blue-900) 70%, var(--color-black));
+  --tide-blue-light: color-mix(in srgb, var(--color-blue-900) 55%, var(--color-cream));
+
+  /* 1,5s é `duration.cinematic` do motion system, em CSS. */
+  --tide-rise: 1.5s;
+  /* O leve passar do ponto no fim é o tombo da onda, não um bounce decorativo. */
+  --tide-break: cubic-bezier(0.34, 1.16, 0.5, 1);
+
+  position: fixed;
+  inset: 0;
+  /*
+    Atrás do conteúdo, à frente do fundo da página. O fundo do body é pintado no
+    canvas do documento, então z-index negativo não o esconde — cobre.
+  */
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--color-green-950), var(--tide-green-deep));
+}
+
+/*
+  O mar inteiro nasce fora da tela e sobe quando a maré vira.
+  Um único transform move água, cristas e respingos juntos.
+*/
+.wave-backdrop__sea {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+  transition: transform var(--tide-rise) var(--tide-break);
+  will-change: transform;
+}
+
+.wave-backdrop[data-risen="true"] .wave-backdrop__sea {
+  transform: translateY(0);
+}
+
+.wave-backdrop__water {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Sobra por baixo: no repique do tombo o mar não pode abrir fresta na base. */
+  bottom: -40%;
+  background: linear-gradient(180deg, var(--tide-blue), var(--tide-blue-deep));
+}
+
+/* ============================================================
+   Cristas — três movimentos somados
+   .wave-backdrop__wave  → balanço lento e contínuo (a maré respira)
+   .wave-backdrop__crest → esticão no instante da quebra
+   svg                   → viagem horizontal infinita
+   ============================================================ */
+
+.wave-backdrop__wave {
+  position: absolute;
+  left: 0;
+  /* Acima da linha d'água: a crista é a borda do mar, não um enfeite sobre ele. */
+  bottom: 100%;
+  width: 100%;
+  height: 170px;
+  pointer-events: none;
+  animation: tide-sway 5s ease-in-out infinite;
+}
+
+.wave-backdrop__wave--back {
+  opacity: 0.45;
+  animation-duration: 7s;
+}
+
+.wave-backdrop__crest {
+  position: absolute;
+  inset: 0;
+  transform-origin: bottom center;
+}
+
+.wave-backdrop[data-risen="true"] .wave-backdrop__crest {
+  animation: tide-break var(--tide-rise) cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+/* A crista de trás quebra um instante depois — é o que dá espessura ao mar. */
+.wave-backdrop[data-risen="true"] .wave-backdrop__wave--back .wave-backdrop__crest {
+  animation-delay: 0.08s;
+}
+
+.wave-backdrop__wave svg {
+  position: absolute;
+  /* Mata a fresta de 1px entre a crista e a água em telas de densidade fracionária. */
+  bottom: -1px;
+  left: 0;
+  /* Dois períodos do desenho: o laço fecha em -50% sem emenda visível. */
+  width: 200%;
+  height: 85px;
+  display: block;
+  animation: tide-run 9s linear infinite;
+}
+
+.wave-backdrop__wave--back svg {
+  fill: var(--tide-blue-light);
+  height: 105px;
+  animation-duration: 13s;
+  animation-direction: reverse;
+}
+
+.wave-backdrop__wave--front svg {
+  fill: var(--tide-blue);
+}
+
+@keyframes tide-run {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes tide-sway {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+@keyframes tide-break {
+  0% {
+    transform: scaleY(2.1) scaleX(1.04);
+  }
+  45% {
+    transform: scaleY(1.35);
+  }
+  75% {
+    transform: scaleY(0.88);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* ============================================================
+   Respingos — saltam uma vez, junto com a quebra
+   ============================================================ */
+
+.wave-backdrop__spray {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 100%;
+  height: 0;
+}
+
+.wave-backdrop__drop {
+  position: absolute;
+  bottom: 40px;
+  left: var(--drop-x);
+  width: var(--drop-size);
+  height: var(--drop-size);
+  border-radius: 50%;
+  background: var(--tide-blue-light);
+  opacity: 0;
+}
+
+.wave-backdrop[data-risen="true"] .wave-backdrop__drop {
+  animation: tide-splash 1.3s cubic-bezier(0.15, 0.7, 0.35, 1) var(--drop-delay) both;
+}
+
+@keyframes tide-splash {
+  0% {
+    transform: translateY(0) scale(0.3);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(calc(-1 * var(--drop-rise))) scale(1);
+    opacity: 0;
+  }
+}
+
+/*
+  Estado reduzido, decidido pelo hook e anunciado via data-static.
+
+  Não é uma media query de propósito — mesma razão da faixa de estados: a regra
+  `@media (prefers-reduced-motion: reduce)` não enxerga o override de
+  `?motion=full`, e CSS e JavaScript acabariam discordando sobre o mesmo efeito.
+
+  A troca de cor PERMANECE: ela é narrativa, não decoração. O que sai é o
+  percurso — a maré cruzando a tela, a respiração contínua, os respingos.
+*/
+.wave-backdrop[data-static="true"] .wave-backdrop__sea {
+  transition-duration: 0.35s;
+  transition-timing-function: ease;
+}
+
+.wave-backdrop[data-static="true"] .wave-backdrop__wave,
+.wave-backdrop[data-static="true"] .wave-backdrop__wave svg,
+.wave-backdrop[data-static="true"] .wave-backdrop__crest,
+.wave-backdrop[data-static="true"] .wave-backdrop__drop {
+  animation: none !important;
+}
+
+.wave-backdrop[data-static="true"] .wave-backdrop__sea {
+  will-change: auto;
+}

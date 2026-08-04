@@ -81,12 +81,19 @@ export function addLettersEntrance(
     de baixo da mesma letra — as duas cópias sairiam de sincronia e o corte
     apareceria como um degrau no meio da letra.
   */
+  /*
+    `y: 0` explícito pelo mesmo motivo de animations/textReveal.ts: a letra nasce
+    com `transform: translateY(100%)` no CSS, e o GSAP lê isso da matriz
+    computada como pixels — `yPercent` viraria uma segunda translação somada à
+    primeira, e a letra terminaria uma linha inteira abaixo da máscara.
+  */
   pairs.forEach((pair, index) => {
     timeline.fromTo(
       pair,
-      { yPercent: 100 },
+      { yPercent: 100, y: 0 },
       {
         yPercent: 0,
+        y: 0,
         duration: timing.reveal,
         ease: timing.ease,
       },

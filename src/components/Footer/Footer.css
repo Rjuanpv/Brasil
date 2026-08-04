@@ -1,0 +1,97 @@
+/*
+  Rodapé — minimalista, como o briefing pede.
+
+  Mesmo preto do encerramento, sem costura entre os dois: o rodapé não é uma
+  faixa nova, é o que sobra depois da última frase.
+*/
+.footer {
+  background: var(--color-black);
+  color: var(--color-cream);
+  padding: clamp(var(--space-7), 8vh, var(--space-9)) var(--grid-margin)
+    clamp(var(--space-6), 5vh, var(--space-8));
+  display: grid;
+  gap: var(--space-7);
+  border-top: 1px solid rgb(244 240 230 / 0.12);
+}
+
+.footer__brand {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.footer__name {
+  margin: 0;
+  font-size: var(--heading-md);
+  line-height: 0.95;
+}
+
+.footer__note {
+  margin: 0;
+  max-width: 42ch;
+  font-size: var(--body-sm);
+  line-height: 1.55;
+  opacity: 0.6;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-6);
+}
+
+/* Sublinhado que cresce da esquerda — o mesmo gesto do botão MENU da navegação. */
+.footer__links a {
+  position: relative;
+  padding-bottom: var(--space-1);
+}
+
+.footer__links a::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer__links a:hover::after,
+.footer__links a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.footer__credits {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  opacity: 0.42;
+}
+
+@media (min-width: 1025px) {
+  .footer {
+    grid-template-columns: repeat(12, 1fr);
+    align-items: end;
+  }
+
+  .footer__brand {
+    grid-column: 1 / span 5;
+  }
+
+  .footer__links {
+    grid-column: 7 / span 3;
+  }
+
+  .footer__credits {
+    grid-column: 1 / -1;
+    margin-block-start: var(--space-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer__links a::after {
+    transition-duration: 0.15s;
+  }
+}

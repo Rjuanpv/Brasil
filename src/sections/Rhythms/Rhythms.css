@@ -1,0 +1,168 @@
+/*
+  05 — RITMOS.
+
+  Amarelo + preto, conforme a tabela de cores da direção de arte. O preto é o
+  mesmo do Manifesto, mas a leitura é oposta: lá ele serve ao silêncio da
+  argumentação, aqui ao contraste máximo das faixas.
+
+  Tudo escopado sob `.rhythms` — nenhuma regra toca `*`, `body` ou `:root`.
+*/
+.rhythms {
+  position: relative;
+  background: var(--color-black);
+  color: var(--color-cream);
+  padding-block: clamp(var(--space-9), 14vh, var(--space-11));
+  display: grid;
+  gap: var(--space-6);
+  /* As faixas sangram de propósito; nada escapa da seção. */
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* O bloco editorial respeita a margem; as faixas, não. */
+.rhythms__index,
+.rhythms .section-title,
+.rhythms__lead,
+.rhythms__topics {
+  padding-inline: var(--grid-margin);
+}
+
+.rhythms__index {
+  color: var(--color-yellow-500);
+}
+
+.rhythms .section-title {
+  font-size: var(--display-md);
+  max-width: 12ch;
+}
+
+.rhythms__lead {
+  max-width: 44ch;
+  font-size: var(--body-lg);
+  line-height: 1.55;
+  opacity: 0.78;
+  /* Assimetria: o título encosta na margem esquerda, a chamada foge para a
+     direita. Nenhuma seção repete o mesmo eixo. */
+  justify-self: end;
+}
+
+.rhythms__topics {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
+  opacity: 0.55;
+}
+
+.rhythms__topics li::before {
+  content: "◆";
+  margin-inline-end: var(--space-2);
+  font-size: 0.6em;
+  vertical-align: 0.25em;
+  color: var(--color-yellow-500);
+}
+
+/* ============================================================
+   Faixas
+   ============================================================ */
+
+.rhythms__rows {
+  margin-block-start: clamp(var(--space-7), 8vh, var(--space-10));
+  display: grid;
+}
+
+.rhythms__row {
+  overflow: hidden;
+  /*
+    As linhas se sobrepõem levemente. Com Anton em escala grande, um espaço
+    limpo entre faixas leria como uma tabela; a invasão é o que faz a seção
+    parecer um som empilhado.
+  */
+  margin-block-start: -0.14em;
+}
+
+.rhythms__row:first-child {
+  margin-block-start: 0;
+}
+
+.rhythms__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/*
+  Os dois grupos são idênticos em conteúdo, largura e espaçamento. Qualquer
+  diferença apareceria como solavanco no ponto de emenda do laço.
+*/
+.rhythms__group {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: clamp(var(--space-4), 1.4vw, var(--space-6));
+  /* O gap não vale nas extremidades; este padding iguala a emenda ao resto. */
+  padding-inline-end: clamp(var(--space-4), 1.4vw, var(--space-6));
+}
+
+.rhythms__word {
+  flex: 0 0 auto;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  white-space: nowrap;
+  font-size: clamp(3rem, 11vw, 11rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--color-yellow-500);
+}
+
+/*
+  Linhas vazadas. O contorno recua a faixa sem apagá-la, e o cruzamento entre
+  cheia e vazada é o que dá camada — é a "sobreposição" que o briefing pede.
+*/
+.rhythms__row--outlined .rhythms__word {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-yellow-500);
+  opacity: 0.7;
+}
+
+.rhythms__separator {
+  flex: 0 0 auto;
+  font-size: clamp(0.7rem, 1.4vw, 1.4rem);
+  line-height: 1;
+  color: var(--color-cream);
+  opacity: 0.35;
+  user-select: none;
+}
+
+/*
+  Estado reduzido, decidido pelo hook e anunciado via data-static — não é uma
+  media query porque a regra CSS não enxerga o override de `?motion=full`.
+
+  As faixas param e ganham rolagem horizontal manual, para que os nomes fora da
+  tela continuem alcançáveis.
+*/
+.rhythms[data-static="true"] .rhythms__row {
+  overflow-x: auto;
+}
+
+.rhythms[data-static="true"] .rhythms__track {
+  transform: none !important;
+  will-change: auto;
+}
+
+/* A cópia do laço não tem função sem movimento, e duplicaria a rolagem. */
+.rhythms[data-static="true"] .rhythms__group[aria-hidden="true"] {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .rhythms__lead {
+    justify-self: start;
+  }
+
+  .rhythms__row {
+    margin-block-start: -0.06em;
+  }
+}

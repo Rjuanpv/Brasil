@@ -1,0 +1,231 @@
+/*
+  06 — NATUREZA.
+
+  A única seção sem fundo próprio até aqui. O que aparece atrás é o fundo fixo
+  da página — verde no começo, azul depois que a maré sobe. Pintar um fundo aqui
+  cancelaria a virada de cor inteira.
+
+  Verde + creme, conforme a tabela da direção de arte.
+*/
+.nature {
+  position: relative;
+  background: transparent;
+  color: var(--color-cream);
+  padding: clamp(var(--space-9), 14vh, var(--space-11)) var(--grid-margin);
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* ============================================================
+   Rastro de imagens
+   ============================================================ */
+
+/*
+  Camada do rastro: cobre a seção inteira, atrás do texto.
+
+  `pointer-events: none` é o que permite isso — sem ela a camada interceptaria
+  cliques e seleção de texto em toda a seção. Quem escuta o ponteiro é a própria
+  seção, passada ao componente como superfície.
+*/
+.nature__trail {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  /* As imagens nascem no ponteiro e se dispersam; nada escapa da seção. */
+  overflow: hidden;
+}
+
+/*
+  O conteúdo sobe para o nível 1.
+
+  Elementos posicionados pintam acima dos não posicionados, independentemente da
+  ordem no DOM: sem esta regra, a camada do rastro cobriria todo o texto da
+  seção, que é conteúdo de fluxo normal.
+*/
+.nature > *:not(.nature__trail) {
+  position: relative;
+  z-index: 1;
+}
+
+.nature__index {
+  color: var(--color-green-700);
+}
+
+.nature .section-title {
+  font-size: var(--display-md);
+  max-width: 13ch;
+}
+
+/*
+  O destaque do título vem para o creme. O amarelo é a cor da energia de Ritmos;
+  repeti-lo aqui contrariaria a regra de uma cor dominante por seção.
+*/
+.nature .section-title__line--accent {
+  color: var(--color-cream);
+  opacity: 0.55;
+}
+
+.nature__lead {
+  max-width: 46ch;
+  font-size: var(--body-lg);
+  line-height: 1.55;
+  opacity: 0.82;
+}
+
+/* ============================================================
+   Biomas
+   ============================================================ */
+
+.nature__biomes {
+  margin: 0;
+  margin-block-start: clamp(var(--space-7), 8vh, var(--space-10));
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-2);
+  counter-reset: biome;
+}
+
+/*
+  O estado inicial do recorte fica no CSS para que nada pisque visível antes de
+  o GSAP assumir — mesma regra dos estados iniciais em animations.css.
+  O raio é o mesmo do estado final: só os quatro números do inset se movem.
+*/
+.nature__biome {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: baseline;
+  gap: var(--space-4) var(--space-6);
+  padding: var(--space-5) var(--space-6);
+  border-radius: 40px;
+  background: rgb(8 10 9 / 0.22);
+  clip-path: inset(0% 100% 0% 0% round 40px);
+}
+
+/*
+  A borda superior é uma linha, não um `border`: com o recorte animando, o
+  border desenharia a moldura inteira já no primeiro frame, à frente da
+  revelação.
+*/
+.nature__biome + .nature__biome {
+  box-shadow: inset 0 1px 0 rgb(244 240 230 / 0.12);
+}
+
+.nature__share {
+  font-size: var(--heading-md);
+  line-height: 0.9;
+  color: var(--color-green-700);
+  /* Tabular mantém os números alinhados entre linhas de larguras diferentes. */
+  font-variant-numeric: tabular-nums;
+  min-width: 4.5ch;
+}
+
+.nature__percent {
+  font-size: 0.45em;
+  margin-inline-start: 0.15em;
+  vertical-align: 0.9em;
+  opacity: 0.7;
+}
+
+.nature__biome-body {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.nature__name {
+  font-size: var(--heading-md);
+  line-height: 0.95;
+}
+
+.nature__note {
+  font-size: var(--body-md);
+  line-height: 1.5;
+  opacity: 0.7;
+  max-width: 52ch;
+}
+
+.nature__source {
+  opacity: 0.45;
+  margin: 0;
+}
+
+/* ============================================================
+   A virada da maré
+   ============================================================ */
+
+.nature__tide {
+  margin-block-start: clamp(var(--space-9), 16vh, var(--space-11));
+  display: grid;
+  gap: var(--space-5);
+  max-width: 34ch;
+  /* Empurrado para a direita: a água entra pela borda, não pelo centro. */
+  justify-self: end;
+  text-align: end;
+}
+
+.nature__tide-figure {
+  margin: 0;
+  font-size: var(--heading-xl);
+  line-height: 0.9;
+  color: var(--color-cream);
+}
+
+.nature__tide-text {
+  margin: 0;
+  font-size: var(--body-lg);
+  line-height: 1.55;
+  opacity: 0.8;
+}
+
+/*
+  Respiro depois do gatilho. A maré leva 1,5s para cruzar a tela; sem folga de
+  scroll abaixo, a seção seguinte já teria chegado quando a onda quebra.
+*/
+.nature::after {
+  content: "";
+  display: block;
+  height: 30vh;
+}
+
+@media (min-width: 1025px) {
+  .nature {
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  .nature__index,
+  .nature__biomes,
+  .nature__source {
+    grid-column: 1 / -1;
+  }
+
+  .nature .section-title {
+    grid-column: 1 / span 6;
+  }
+
+  .nature__lead {
+    grid-column: 8 / -1;
+    align-self: end;
+  }
+
+  .nature__tide {
+    grid-column: 7 / -1;
+  }
+
+  .nature::after {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .nature__biome {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+  }
+
+  .nature__tide {
+    justify-self: start;
+    text-align: start;
+  }
+}

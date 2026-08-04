@@ -14,6 +14,12 @@ export interface LayerProps {
   style?: CSSProperties;
   /** Camadas acima da dobra não devem esperar o lazy loading. */
   priority?: boolean;
+  /**
+   * De que borda a camada entra em cena. Apenas marca o elemento com
+   * `data-enter-from`; quem anima é quem monta a timeline — ver
+   * animations/heroEntrance.ts.
+   */
+  enterFrom?: "left" | "right";
 }
 
 /**
@@ -24,7 +30,7 @@ export interface LayerProps {
  * animado pelo GSAP é sempre o wrapper, nunca a imagem.
  */
 export const Layer = forwardRef<HTMLDivElement, LayerProps>(function Layer(
-  { src, alt, className, style, priority = false },
+  { src, alt, className, style, priority = false, enterFrom },
   ref,
 ) {
   const decorative = alt === undefined;
@@ -34,6 +40,7 @@ export const Layer = forwardRef<HTMLDivElement, LayerProps>(function Layer(
       ref={ref}
       className={`layer parallax-layer${className ? ` ${className}` : ""}`}
       style={style}
+      data-enter-from={enterFrom}
       aria-hidden={decorative || undefined}
     >
       <img

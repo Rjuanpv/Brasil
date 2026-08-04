@@ -146,7 +146,7 @@ export function Intro({ children, onFormed, onOpened }: IntroProps) {
             // Síncrono: ao voltar, o overflow já saiu do body.
             setScrollLocked(false);
 
-            opening = createOpeningTimeline(refs, cutLine);
+            opening = createOpeningTimeline(refs, cutLine, reduced);
 
             trigger = ScrollTrigger.create({
               trigger: scroll,

@@ -1111,10 +1111,13 @@ function SplashCursor({
       {/*
         DESVIO 4 — 100% em vez de 100vw/100vh.
 
-        O projeto usa `scrollbar-gutter: stable`, então 100vw inclui a calha da
-        barra de rolagem: o canvas ficaria mais largo que a área onde o ponteiro
-        de fato existe, e o fluido apareceria deslocado alguns pixels do cursor.
-        100% acompanha o contêiner fixo, que já exclui a calha.
+        100vw inclui a largura da barra de rolagem sempre que ela ocupa espaço:
+        o canvas ficaria mais largo que a área onde o ponteiro de fato existe, e
+        o fluido apareceria deslocado alguns pixels do cursor. 100% acompanha o
+        contêiner fixo, que já exclui a calha.
+
+        Hoje a barra da página está escondida (ver styles/globals.css) e as duas
+        medidas coincidem — mas 100% continua sendo a correta se ela voltar.
       */}
       <canvas
         ref={canvasRef}

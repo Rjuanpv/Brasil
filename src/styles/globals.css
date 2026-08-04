@@ -3,12 +3,30 @@ html {
   /* O scroll suave é do Lenis. O nativo brigaria com ele. */
   scroll-behavior: auto;
   /*
-    Reserva a calha da barra de rolagem desde sempre. Sem isso, o momento em que
-    a trava do scroll sai e a barra aparece encolhe a área útil e joga a palavra
-    BRASIL alguns pixels para a esquerda — um salto visível bem no meio da
-    abertura.
+    A barra de rolagem da página não é desenhada.
+
+    Aqui havia `scrollbar-gutter: stable`, que reservava a calha desde sempre:
+    sem ela, o instante em que a trava do scroll sai e a barra aparece encolhia a
+    área útil e jogava a palavra BRASIL alguns pixels para a esquerda — um salto
+    visível bem no meio da abertura.
+
+    Escondendo a barra, o problema deixa de existir na origem em vez de ser
+    compensado: não há barra para aparecer, nada muda de largura, e a experiência
+    ganha de volta os ~15px que a calha ocupava em todas as seções.
+
+    O que rola de fato é o Lenis, então a barra nativa nunca foi o controle real
+    — e a posição na narrativa continua anunciada pelo indicador de seção da
+    navegação, que acompanha a leitura.
+
+    Só a barra da PÁGINA some. As faixas horizontais que aparecem sob movimento
+    reduzido mantêm as suas: lá a rolagem manual é o que substitui a animação, e
+    escondê-la tiraria o único jeito de alcançar os nomes fora da tela.
   */
-  scrollbar-gutter: stable;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 body {

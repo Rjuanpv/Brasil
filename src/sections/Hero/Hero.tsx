@@ -12,9 +12,14 @@ interface HeroProps {
 }
 
 /**
- * A Hero está renderizada e visível desde o primeiro frame, atrás das metades da
- * palavra BRASIL. Ela não tem animação de entrada: quem a revela é o vão que se
- * abre entre as metades, e a escala que a Intro anima no scroll.
+ * A Hero está renderizada desde o primeiro frame, atrás das metades da palavra
+ * BRASIL. Quem a descobre continua sendo o vão que se abre entre elas — mas o
+ * que o vão descobre é uma composição CHEGANDO: cada camada volta pela borda em
+ * que vive, no mesmo scroll que parte a palavra.
+ *
+ * A Hero não constrói essa entrada nem sabe quando ela acontece. Ela apenas
+ * declara, com `data-enter-from`, de que lado cada elemento entra; quem monta a
+ * timeline é a abertura, que é dona do scroll — ver animations/heroEntrance.ts.
  *
  * A composição é toda em HTML, com uma camada por elemento. A profundidade vem
  * da ordem de empilhamento e da diferença de deslocamento no parallax.
@@ -56,12 +61,41 @@ export function Hero({ interactive }: HeroProps) {
   );
 
   return (
-    <section className="hero" id="top" aria-labelledby="hero-title">
-      {/* ---- Camadas, do fundo para a frente ---- */}
+    <section
+      className="hero"
+      id="top"
+      data-section-label="02 — Hero"
+      aria-labelledby="hero-title"
+    >
+      {/*
+        ---- Camadas, do fundo para a frente ----
+
+        `enterFrom` diz de que borda cada uma volta durante a abertura. O fundo
+        não tem: ele cobre a viewport inteira, e deslocá-lo abriria uma faixa
+        vazia na borda oposta durante todo o percurso.
+      */}
       <Layer ref={backgroundRef} src={heroLayers.background} className="hero__background" priority />
-      <Layer ref={blueRef} src={heroLayers.shapeBlue} className="hero__blue" priority />
-      <Layer ref={mainRef} src={heroLayers.main} className="hero__main" priority />
-      <Layer ref={yellowRef} src={heroLayers.shapeYellow} className="hero__yellow" priority />
+      <Layer
+        ref={blueRef}
+        src={heroLayers.shapeBlue}
+        className="hero__blue"
+        enterFrom="right"
+        priority
+      />
+      <Layer
+        ref={mainRef}
+        src={heroLayers.main}
+        className="hero__main"
+        enterFrom="right"
+        priority
+      />
+      <Layer
+        ref={yellowRef}
+        src={heroLayers.shapeYellow}
+        className="hero__yellow"
+        enterFrom="left"
+        priority
+      />
 
       {/* A textura é um azulejo repetido, não uma imagem esticada: rasterizar
           ruído fractal na viewport inteira custa caro e o grão não tem escala
@@ -78,12 +112,17 @@ export function Hero({ interactive }: HeroProps) {
         o texto de apoio nem o botão.
       */}
       <div className="hero__content">
-        <h1 ref={titleRef} id="hero-title" className="hero__title display parallax-layer">
+        <h1
+          ref={titleRef}
+          id="hero-title"
+          className="hero__title display parallax-layer"
+          data-enter-from="left"
+        >
           <span className="hero__title-line">Brasil</span>
           <span className="hero__title-line hero__title-line--sub">Em Movimento</span>
         </h1>
 
-        <div className="hero__copy">
+        <div className="hero__copy" data-enter-from="left">
           <p className="hero__support">Um país de ritmos, contrastes e transformações.</p>
 
           <div className="hero__action">
@@ -94,7 +133,12 @@ export function Hero({ interactive }: HeroProps) {
         </div>
       </div>
 
-      <div ref={scrollHintRef} className="hero__scroll-hint label parallax-layer" aria-hidden="true">
+      <div
+        ref={scrollHintRef}
+        className="hero__scroll-hint label parallax-layer"
+        data-enter-from="right"
+        aria-hidden="true"
+      >
         Role para descobrir
       </div>
     </section>

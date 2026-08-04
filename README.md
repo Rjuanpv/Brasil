@@ -28,12 +28,34 @@ sistema e mantém a escolha pela sessão. `?motion=system` volta a obedecê-la.
 | | seção | estado |
 |---|---|---|
 | 01 | Abertura | letras de BRASIL sobem de máscaras, formam a palavra, e o scroll a parte ao meio revelando a Hero |
-| 02 | Hero | composição em camadas separadas, com parallax de mouse por profundidade |
+| 02 | Hero | as camadas voltam pelas bordas conforme a palavra se parte, e depois ganham parallax de mouse por profundidade |
 | — | Faixa de estados | as 27 unidades federativas em movimento contínuo |
 | 03 | Manifesto | números com contagem animada |
 | 04 | Territórios | lista editorial das cinco regiões, com revelação de imagem por blocos |
+| 05 | Ritmos | quatro faixas de gêneros que aceleram conforme a velocidade do scroll |
+| 06 | Natureza | os seis biomas revelados por recorte orgânico, a maré que vira, e um rastro de mar, praias e rios que segue o ponteiro sobre o azul |
+| 07 | Cidades | cinco nomes em escala extrema, cada um com deslocamento próprio |
+| 08 | Futuro | malha técnica em parallax, preto e verde vibrante |
+| 09 | Encerramento | a última frase entra por caracteres, e o verde volta atrás dela |
+| — | Rodapé | nome, links, créditos, ano |
 
-Faltam: 05 Ritmos, 06 Natureza, 07 Cidades, 08 Futuro, 09 Encerramento e rodapé.
+A narrativa está fechada. O que falta é substituição de assets, não estrutura: as
+camadas da Hero e as fotografias das regiões continuam sendo placeholders.
+
+## A virada de cor
+
+Nas quatro primeiras seções o chão é verde. Na Natureza, quando o bloco da costa
+cruza 55% da tela, uma onda azul sobe pela viewport inteira e o fundo da
+experiência muda — Cidades acontece sobre o mar, e o preto opaco do Futuro o
+encerra.
+
+A troca é de uma camada só, fixa, atrás de tudo (`WaveBackdrop`). As seções
+anteriores nunca ficam sabendo: elas têm fundo opaco e simplesmente a escondem.
+Quem aparece por cima do fundo são as duas seções que se declaram transparentes.
+
+A decisão de quando virar é da Natureza, que contém o gatilho; o estado mora no
+`App`; a pintura é do `WaveBackdrop`. Nenhum dos três precisa de referência para
+os outros dois.
 
 ## Estrutura
 
@@ -56,6 +78,13 @@ Duas convenções que atravessam o projeto:
   com profundidade própria. Os assets são placeholders procedurais até os
   exports finais chegarem.
 
+- **Modo reduzido é redução, não remoção.** Sob `prefers-reduced-motion` o
+  percurso sai e o conteúdo fica: a maré ainda troca de cor, as faixas de ritmos
+  param mas ganham rolagem manual, os números aparecem no valor final. Quando a
+  decisão precisa ser lida pelo CSS e pelo JavaScript ao mesmo tempo, ela é
+  anunciada num `data-static` no DOM — a media query não enxerga o override de
+  `?motion=full`, e os dois lados acabariam discordando.
+
 ## Créditos das imagens
 
 As fotografias das regiões são **provisórias**, do Wikimedia Commons, e serão
@@ -72,9 +101,16 @@ substituídas. Estão aqui sob as licenças abaixo:
 Links diretos para cada arquivo de origem em
 [`src/assets/territories/CREDITS.md`](src/assets/territories/CREDITS.md).
 
-O efeito de cursor `SplashCursor` é adaptado de
-[React Bits](https://reactbits.dev), com os desvios do original comentados no
-próprio arquivo.
+As dez fotografias de **mar, praias e rios** do rastro da Natureza também vêm do
+Wikimedia Commons, sob CC BY ou CC BY-SA — Praia do Gunga (AL), Taipu de Fora,
+Caravelas e Cumuru (BA), Bombinhas e Guarda do Embaú (SC), rio Amazonas (PA),
+cachoeira de Paulo Afonso (BA) e dois rios sem localização declarada. Todas
+exigem atribuição: autor, licença e link de cada uma em
+[`src/assets/water/CREDITS.md`](src/assets/water/CREDITS.md).
+
+Os efeitos `SplashCursor` e `ImageTrail` são adaptados de
+[React Bits](https://reactbits.dev), com os desvios do original comentados nos
+próprios arquivos.
 
 Fontes: [Anton](https://fonts.google.com/specimen/Anton) e
 [Inter](https://fonts.google.com/specimen/Inter), ambas SIL Open Font License.

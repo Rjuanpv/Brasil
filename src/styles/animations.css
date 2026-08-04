@@ -33,7 +33,18 @@
   white-space: pre;
 }
 
-/* ---- Estados iniciais antes do GSAP ---- */
+/*
+  ---- Estados iniciais antes do GSAP ----
+
+  ATENÇÃO ao mexer aqui: quem anima estes elementos precisa zerar `y`
+  explicitamente no tween.
+
+  `getComputedStyle` nunca devolve a porcentagem abaixo — devolve uma `matrix()`
+  com ela já resolvida em pixels. O GSAP lê isso como `y: <px>` e passa a somar
+  qualquer `yPercent` por cima, em vez de substituir. Sem o `y: 0` no tween, a
+  animação termina uma linha inteira fora da máscara: o texto fica invisível e
+  nada acusa o erro. Ver animations/textReveal.ts.
+*/
 [data-animate="mask-up"] .split-word,
 [data-animate="mask-up"] .split-char {
   transform: translate3d(0, 110%, 0);
@@ -52,20 +63,30 @@
 /*
   Sob redução de movimento, nada entra com estado inicial escondido:
   o conteúdo precisa estar visível mesmo que o GSAP não rode.
+
+  A decisão vem do `data-motion` no body, e NÃO de uma media query — mesma razão
+  da faixa de estados e das faixas de ritmos: `@media (prefers-reduced-motion)`
+  não enxerga o override de `?motion=full`, e CSS e JavaScript passam a discordar
+  sobre o mesmo efeito.
+
+  Aqui isso era grave, e silencioso. Com a preferência ligada no sistema, o
+  `transform: none !important` abaixo vencia até o estilo inline do GSAP: numa
+  máquina com "Mostrar animações" desativado, o parallax de mouse e a entrada da
+  Hero rodavam inteiros em JavaScript e não moviam um pixel na tela, sem erro
+  nenhum no console. Quem escreve o atributo é o App, a partir do mesmo
+  useReducedMotion que decide se as animações rodam — uma fonte de verdade só.
 */
-@media (prefers-reduced-motion: reduce) {
-  [data-animate="mask-up"] .split-word,
-  [data-animate="mask-up"] .split-char {
-    transform: none;
-  }
+body[data-motion="reduced"] [data-animate="mask-up"] .split-word,
+body[data-motion="reduced"] [data-animate="mask-up"] .split-char {
+  transform: none;
+}
 
-  [data-animate="fade-up"] {
-    opacity: 1;
-    transform: none;
-  }
+body[data-motion="reduced"] [data-animate="fade-up"] {
+  opacity: 1;
+  transform: none;
+}
 
-  .parallax-layer {
-    will-change: auto;
-    transform: none !important;
-  }
+body[data-motion="reduced"] .parallax-layer {
+  will-change: auto;
+  transform: none !important;
 }

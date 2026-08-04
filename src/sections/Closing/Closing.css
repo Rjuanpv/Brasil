@@ -1,0 +1,79 @@
+/*
+  09 — ENCERRAMENTO.
+
+  Preto de fundo, verde vibrante difuso atrás da frase. A direção de arte reserva
+  o preto para os fundos de encerramento, e o verde que reaparece por trás é o
+  argumento visual do "continua": a página termina na cor em que começou.
+*/
+.closing {
+  position: relative;
+  background: var(--color-black);
+  color: var(--color-cream);
+  /* Altura de tela cheia: a última frase não divide espaço com nada. */
+  min-height: 100svh;
+  padding: clamp(var(--space-9), 14vh, var(--space-11)) var(--grid-margin);
+  display: grid;
+  align-content: center;
+  gap: var(--space-7);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/*
+  O clarão é um gradiente radial, não uma imagem nem um blur: `filter: blur()`
+  numa área desse tamanho obriga o navegador a rasterizar e desfocar a seção
+  inteira a cada frame da animação de escala.
+*/
+.closing__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 30% 55%,
+    rgb(8 122 75 / 0.55) 0%,
+    rgb(8 122 75 / 0.18) 35%,
+    transparent 68%
+  );
+  will-change: transform, opacity;
+}
+
+/* Todo o conteúdo fica acima do clarão. */
+.closing > *:not(.closing__glow) {
+  position: relative;
+  z-index: 1;
+}
+
+.closing__index {
+  color: var(--color-green-700);
+}
+
+.closing__title {
+  margin: 0;
+  font-size: var(--display-md);
+  max-width: 12ch;
+}
+
+/*
+  Cada linha é o próprio recorte da máscara: os caracteres sobem de dentro dela.
+  `overflow: hidden` com `line-height` folgado, senão o glifo do Anton — que
+  ultrapassa a caixa de linha compacta do design system — seria cortado já em
+  repouso.
+*/
+.closing__line {
+  display: block;
+  overflow: hidden;
+  line-height: 1.02;
+}
+
+.closing__text {
+  display: block;
+}
+
+.closing__line--accent {
+  color: var(--color-green-700);
+}
+
+.closing__action {
+  margin-block-start: var(--space-4);
+}

@@ -1,14 +1,12 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SectionTitle } from "@/components/SectionTitle/SectionTitle";
+import { playOnEnter } from "@/animations/playOnEnter";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useSectionReveal } from "@/hooks/useSectionReveal";
 import { duration, easing } from "@/lib/motion";
 import { manifestoFacts } from "./manifestoFacts";
 import "./Manifesto.css";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /**
  * 03 — MANIFESTO. "O BRASIL NÃO PARA."
@@ -48,37 +46,52 @@ export function Manifesto() {
         return;
       }
 
-      cards.forEach((card, index) => {
-        const fact = manifestoFacts[index];
-        const output = card.querySelector<HTMLElement>(".manifesto__value");
-        if (!fact || !output) return;
+      /*
+        Cada número parte escondido e só existe na tela depois da contagem —
+        então o gatilho não pode falhar em silêncio, ou a seção fica sem os
+        números. Por isso IntersectionObserver, e não ScrollTrigger: ele não
+        guarda posições calculadas contra uma altura de documento que muda
+        depois da montagem. Ver animations/playOnEnter.ts.
+      */
+      gsap.set(cards, { autoAlpha: 0, y: 28 });
 
-        const counter = { value: 0 };
+      const stop = playOnEnter(
+        cards,
+        (card, index) => {
+          const fact = manifestoFacts[index];
+          const output = card.querySelector<HTMLElement>(".manifesto__value");
+          if (!fact || !output) return;
 
-        gsap
-          .timeline({
-            scrollTrigger: { trigger: card, start: "top 85%", once: true },
-          })
-          .fromTo(
-            card,
-            { autoAlpha: 0, y: 28 },
-            { autoAlpha: 1, y: 0, duration: duration.slow, ease: easing.entrance },
-          )
-          .to(
-            counter,
-            {
-              value: fact.value,
-              duration: duration.cinematic,
-              ease: easing.dramatic,
-              // A contagem é o movimento: o número CRESCE até o valor, em vez de
-              // aparecer pronto. É o que faz "não para" ser mostrado, não dito.
-              onUpdate: () => {
-                output.textContent = format(counter.value, fact);
+          const counter = { value: 0 };
+
+          gsap
+            .timeline()
+            .to(card, {
+              autoAlpha: 1,
+              y: 0,
+              duration: duration.slow,
+              ease: easing.entrance,
+            })
+            .to(
+              counter,
+              {
+                value: fact.value,
+                duration: duration.cinematic,
+                ease: easing.dramatic,
+                // A contagem é o movimento: o número CRESCE até o valor, em vez
+                // de aparecer pronto. É o que faz "não para" ser mostrado, não
+                // dito.
+                onUpdate: () => {
+                  output.textContent = format(counter.value, fact);
+                },
               },
-            },
-            0.1,
-          );
-      });
+              0.1,
+            );
+        },
+        { line: 0.85 },
+      );
+
+      return stop;
     }, section);
 
     return () => ctx.revert();
@@ -90,6 +103,7 @@ export function Manifesto() {
       ref={sectionRef}
       id="manifesto"
       className="manifesto"
+      data-section-label="03 — Manifesto"
       aria-labelledby="manifesto-title"
     >
       <p className="manifesto__index label">03 — Manifesto</p>
@@ -104,7 +118,7 @@ export function Manifesto() {
 
       {/*
         `data-self-reveal` mantém este bloco fora da entrada da seção: cada
-        número tem o próprio ScrollTrigger com a contagem, e animá-lo dentro de
+        número tem o próprio gatilho de entrada com a contagem, e animá-lo dentro de
         um contêiner ainda invisível esconderia justamente esse movimento.
       */}
       <dl className="manifesto__facts" data-self-reveal>

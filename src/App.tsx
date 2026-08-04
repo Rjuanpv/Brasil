@@ -1,14 +1,22 @@
-import { useCallback, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
 import { Intro } from "@/components/Intro/Intro";
 import { StatesMarquee } from "@/components/StatesMarquee/StatesMarquee";
 import { Navigation } from "@/components/Navigation/Navigation";
 import { CustomCursor } from "@/components/CustomCursor/CustomCursor";
+import { Footer } from "@/components/Footer/Footer";
+import { WaveBackdrop } from "@/components/WaveBackdrop/WaveBackdrop";
 import SplashCursor from "@/components/SplashCursor/SplashCursor";
 import { Hero } from "@/sections/Hero/Hero";
 import { Manifesto } from "@/sections/Manifesto/Manifesto";
 import { Territories } from "@/sections/Territories/Territories";
+import { Rhythms } from "@/sections/Rhythms/Rhythms";
+import { Nature } from "@/sections/Nature/Nature";
+import { Cities } from "@/sections/Cities/Cities";
+import { Future } from "@/sections/Future/Future";
+import { Closing } from "@/sections/Closing/Closing";
 import { MouseProvider } from "@/hooks/useMousePosition";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
+import { useCurrentSection } from "@/hooks/useCurrentSection";
 import { useIsTouch } from "@/hooks/useIsTouch";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -38,8 +46,35 @@ function Experience() {
   */
   const [interactive, setInteractive] = useState(seenIntro);
 
+  /*
+    A maré é estado do App, e não do fundo nem da seção.
+
+    Quem sabe QUANDO a água chega é a Natureza, que contém o gatilho; quem a
+    PINTA é o fundo fixo, que vive fora do <main>. Guardar a decisão aqui evita
+    que uma referência tenha que atravessar a árvore ao contrário — e passar um
+    ref de uma seção para um irmão anterior não funcionaria de qualquer forma:
+    no primeiro layout effect ele ainda estaria vazio.
+  */
+  const [tideRisen, setTideRisen] = useState(false);
+
   const isTouch = useIsTouch();
   const reducedMotion = useReducedMotion();
+
+  /* O rótulo da navegação sai das próprias seções, via data-section-label. */
+  const currentSection = useCurrentSection("02 — Hero");
+
+  /*
+    A decisão sobre movimento reduzido é publicada no DOM para o CSS ler.
+
+    O CSS precisa saber se as animações vão rodar — é ele que decide se um
+    elemento nasce escondido esperando o GSAP ou já visível. A media query não
+    serve para isso: ela não enxerga o override de `?motion=full`, e os dois
+    lados acabam discordando. Em layout effect, antes da pintura, para que nada
+    apareça no estado errado nem por um frame.
+  */
+  useLayoutEffect(() => {
+    document.body.dataset.motion = reducedMotion ? "reduced" : "full";
+  }, [reducedMotion]);
 
   /*
     Os efeitos de ponteiro entram desde o primeiro frame, e não ao fim da
@@ -92,8 +127,16 @@ function Experience() {
         />
       )}
 
+      {/*
+        Fundo fixo da experiência inteira. Fica atrás de tudo e só aparece nas
+        seções que se declaram transparentes — Natureza e Cidades. É ele que faz
+        o verde virar azul no meio da narrativa, sem que nenhuma seção anterior
+        precise ser tocada.
+      */}
+      <WaveBackdrop risen={tideRisen} />
+
       <CustomCursor />
-      <Navigation section="01 — Hero" visible={interactive} />
+      <Navigation section={currentSection} visible={interactive} />
 
       <main id="main">
         <Intro onFormed={handleFormed} onOpened={handleOpened}>
@@ -106,9 +149,20 @@ function Experience() {
 
         <Manifesto />
         <Territories />
+        <Rhythms />
 
-        {/* TODO: 05 Ritmos, 06 Natureza, 07 Cidades, 08 Futuro, 09 Encerramento, rodapé. */}
+        {/*
+          A partir daqui o chão da página é o fundo fixo: Natureza e Cidades não
+          têm cor própria. A Natureza faz a maré subir; a Cidades acontece sobre
+          o azul que ela deixou; o preto opaco do Futuro encerra a água.
+        */}
+        <Nature onTide={setTideRisen} tideRisen={tideRisen} />
+        <Cities />
+        <Future />
+        <Closing />
       </main>
+
+      <Footer />
     </>
   );
 }

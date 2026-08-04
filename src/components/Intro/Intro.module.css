@@ -110,6 +110,10 @@
   /*
     Estado inicial no CSS, não no JS: a letra já nasce abaixo do recorte, então
     a palavra formada nunca aparece por um frame antes de o GSAP assumir.
+
+    Quem anima precisa zerar `y` explicitamente: `getComputedStyle` devolve esta
+    porcentagem já resolvida em pixels dentro de uma `matrix()`, o GSAP a guarda
+    como `y` e passa a SOMAR o `yPercent` em cima. Ver animations/lettersEntrance.ts.
   */
   transform: translateY(100%);
 }

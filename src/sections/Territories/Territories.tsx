@@ -55,7 +55,12 @@ export function Territories() {
   };
 
   return (
-    <section ref={sectionRef} className="territories" aria-labelledby="territories-title">
+    <section
+      ref={sectionRef}
+      className="territories"
+      data-section-label="04 — Territórios"
+      aria-labelledby="territories-title"
+    >
       <p className="territories__index label">04 — Territórios</p>
 
       <SectionTitle id="territories-title" lines={TITLE_LINES} accentIndex={1} />

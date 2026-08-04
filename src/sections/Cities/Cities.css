@@ -1,0 +1,139 @@
+/*
+  07 — CIDADES.
+
+  Transparente como a Natureza: o azul que se vê aqui é o fundo fixo da página
+  depois que a maré subiu. Pintar um fundo próprio anularia a virada de cor.
+
+  Azul + branco quente, conforme a tabela da direção de arte.
+*/
+.cities {
+  position: relative;
+  background: transparent;
+  color: var(--color-cream);
+  padding: clamp(var(--space-9), 14vh, var(--space-11)) 0;
+  display: grid;
+  gap: var(--space-6);
+  /* Os nomes deslizam para fora da margem; nada escapa da seção. */
+  overflow: hidden;
+}
+
+/* O bloco editorial respeita a margem; os nomes, não. */
+.cities__index,
+.cities .section-title,
+.cities__lead,
+.cities__source {
+  padding-inline: var(--grid-margin);
+}
+
+.cities__index {
+  color: var(--color-cream);
+  opacity: 0.5;
+}
+
+.cities .section-title {
+  font-size: var(--display-md);
+  max-width: 14ch;
+}
+
+/* Creme no destaque: o amarelo pertence a Ritmos, e a seção já tem sua cor. */
+.cities .section-title__line--accent {
+  color: var(--color-cream);
+  opacity: 0.5;
+}
+
+.cities__lead {
+  max-width: 46ch;
+  font-size: var(--body-lg);
+  line-height: 1.55;
+  opacity: 0.82;
+  justify-self: end;
+}
+
+/* ============================================================
+   Os nomes
+   ============================================================ */
+
+.cities__list {
+  margin: 0;
+  margin-block-start: clamp(var(--space-8), 10vh, var(--space-11));
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: clamp(var(--space-6), 7vh, var(--space-9));
+}
+
+/*
+  Cada cidade se alinha por conta própria. É o que impede a seção de virar uma
+  lista: o olho percorre a página em ziguezague, não numa coluna.
+*/
+.cities__city {
+  display: grid;
+  justify-items: var(--city-align);
+  gap: var(--space-3);
+  padding-inline: var(--grid-margin);
+  text-align: var(--city-align);
+}
+
+.cities__name {
+  display: block;
+  font-size: var(--display-lg);
+  line-height: 0.86;
+  /* O nome nunca quebra: ele sangra para fora da margem, que é o corte editorial
+     que a direção de arte pede. */
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.cities__meta {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 40ch;
+}
+
+.cities__trait {
+  font-size: var(--body-lg);
+  line-height: 1.4;
+  opacity: 0.85;
+}
+
+.cities__data {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: var(--city-align);
+  opacity: 0.55;
+}
+
+.cities__source {
+  opacity: 0.4;
+  margin: 0;
+  margin-block-start: clamp(var(--space-7), 8vh, var(--space-9));
+}
+
+@media (min-width: 1025px) {
+  .cities__lead {
+    max-width: 40ch;
+    margin-inline-end: 8vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .cities__lead {
+    justify-self: start;
+  }
+
+  /* Em tela estreita o ziguezague vira desalinhamento sem leitura: tudo volta
+     ao eixo esquerdo e o nome encolhe o suficiente para caber. */
+  .cities__city {
+    justify-items: start;
+    text-align: start;
+  }
+
+  .cities__data {
+    justify-content: start;
+  }
+
+  .cities__name {
+    font-size: var(--display-md);
+  }
+}

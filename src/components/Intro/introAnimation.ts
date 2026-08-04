@@ -5,6 +5,7 @@ import {
   addLettersEntrance,
 } from "@/animations/lettersEntrance";
 import { createWordScrollReveal } from "@/animations/wordScrollReveal";
+import { addHeroEntrance } from "@/animations/heroEntrance";
 
 /*
   As duas fases da abertura são construídas separadamente, e não ao mesmo tempo.
@@ -69,11 +70,27 @@ export function createEntranceTimeline(
 }
 
 /**
- * FASE 2 — a palavra se parte ao meio e revela a Hero.
+ * FASE 2 — a palavra se parte ao meio e revela a Hero, que entra junto.
  *
  * Pausada: quem a move é o ScrollTrigger. Só pode ser criada com o scroll já
  * destravado e a palavra já visível.
+ *
+ * A entrada da Hero é acrescentada aqui, e não numa timeline própria: as duas
+ * coisas são o mesmo gesto e precisam do mesmo relógio. Em timelines separadas,
+ * cada uma com seu gatilho, o vão e a composição fatalmente sairiam de sincronia
+ * a cada refresh de medida.
+ *
+ * Nada aqui sabe o que a Hero tem dentro. A busca é por `data-enter-from`, que
+ * as camadas declaram — a abertura é dona do scroll, não do conteúdo.
  */
-export function createOpeningTimeline(refs: IntroRefs, cutLine: number): gsap.core.Timeline {
-  return createWordScrollReveal(refs, cutLine);
+export function createOpeningTimeline(
+  refs: IntroRefs,
+  cutLine: number,
+  reduced: boolean,
+): gsap.core.Timeline {
+  const timeline = createWordScrollReveal(refs, cutLine);
+
+  addHeroEntrance(timeline, refs.stage, reduced);
+
+  return timeline;
 }
