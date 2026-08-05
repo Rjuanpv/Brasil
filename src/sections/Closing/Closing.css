@@ -44,10 +44,6 @@
   z-index: 1;
 }
 
-.closing__index {
-  color: var(--color-green-700);
-}
-
 .closing__title {
   margin: 0;
   font-size: var(--display-md);

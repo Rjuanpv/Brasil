@@ -103,11 +103,8 @@ export function Manifesto() {
       ref={sectionRef}
       id="manifesto"
       className="manifesto"
-      data-section-label="03 — Manifesto"
       aria-labelledby="manifesto-title"
     >
-      <p className="manifesto__index label">03 — Manifesto</p>
-
       <SectionTitle id="manifesto-title" lines={["O Brasil", "não para."]} accentIndex={1} />
 
       <p className="manifesto__lead">

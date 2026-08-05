@@ -49,10 +49,6 @@
   z-index: 1;
 }
 
-.future__index {
-  color: var(--color-green-700);
-}
-
 .future .section-title {
   font-size: var(--display-md);
   max-width: 11ch;
@@ -90,6 +86,17 @@
 .future__front {
   position: relative;
   display: grid;
+  /*
+    `minmax(0, 1fr)` em vez da coluna implícita `auto`.
+
+    Uma trilha `auto` nunca encolhe abaixo do min-content do seu conteúdo. Como
+    BIOTECNOLOGIA é uma palavra só, sem ponto de quebra, o min-content dela é a
+    palavra inteira: a coluna interna esticava até caber, arrastava o parágrafo
+    junto, e os dois transbordavam a célula. O texto não sumia — ficava atrás do
+    fundo opaco da célula seguinte, que é pintada depois. Palavras "comidas" pelo
+    vizinho.
+  */
+  grid-template-columns: minmax(0, 1fr);
   align-content: start;
   gap: var(--space-3);
   padding: var(--space-7) var(--space-6);
@@ -105,6 +112,13 @@
   margin: 0;
   font-size: var(--heading-md);
   line-height: 0.95;
+  /*
+    Rede de segurança. Com a coluna já podendo encolher, uma palavra maior que
+    ela quebraria a linha se houvesse onde; não havendo, transbordaria de novo.
+    Quebrar no meio da palavra é feio, mas é visível — e o modo de falha que
+    estava aqui era pior: silencioso, e diferente em cada largura de tela.
+  */
+  overflow-wrap: break-word;
 }
 
 .future__fact {
@@ -130,9 +144,17 @@
     grid-template-columns: repeat(12, 1fr);
   }
 
-  .future__index,
   .future__fronts {
     grid-column: 1 / -1;
+    /*
+      Três colunas fixas, e não `auto-fit`.
+
+      Com `auto-fit`, uma tela de 1900px cabia as seis frentes numa linha só, a
+      ~300px cada — estreito demais para a tipografia de display, e a leitura
+      virava a fileira de cartõezinhos que a direção de arte pede para evitar.
+      Em duas fileiras de três, a coluna passa dos 500px e o nome respira.
+    */
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .future .section-title {

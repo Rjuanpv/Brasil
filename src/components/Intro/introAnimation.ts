@@ -28,7 +28,6 @@ export interface IntroRefs {
   topLetters: HTMLElement[];
   /** Seis letras da cópia de baixo, nas mesmas posições. */
   bottomLetters: HTMLElement[];
-  hint: HTMLElement;
 }
 
 /**
@@ -40,7 +39,7 @@ export function createEntranceTimeline(
   reduced: boolean,
   onFormed: () => void,
 ): gsap.core.Timeline {
-  const { topLetters, bottomLetters, hint } = refs;
+  const { topLetters, bottomLetters } = refs;
 
   const pairs = topLetters.map((top, index) => [top, bottomLetters[index]]);
 
@@ -54,17 +53,17 @@ export function createEntranceTimeline(
 
   /*
     A palavra permanece inteira e parada. A pausa existe para o usuário
-    reconhecer a palavra antes de qualquer outra coisa acontecer — e o convite
-    para rolar só aparece depois dela, nunca durante a formação.
+    reconhecer a palavra antes de qualquer outra coisa acontecer.
+
+    Ela é reservada por um espaço vazio na timeline, e não por um elemento que
+    esteja animando. Antes quem a ocupava era o convite "role para abrir"; sem
+    ele, a timeline terminaria no instante em que a última letra chega, o
+    `onComplete` liberaria o scroll na mesma hora e a palavra formada nunca
+    chegaria a ficar parada na tela. O silêncio aqui é conteúdo.
   */
   const pause = reduced ? REDUCED_RECOGNITION_PAUSE : RECOGNITION_PAUSE;
 
-  entrance.fromTo(
-    hint,
-    { autoAlpha: 0, y: 10 },
-    { autoAlpha: 1, y: 0, duration: 0.4, ease: "power2.out" },
-    formedAt + pause,
-  );
+  entrance.to({}, { duration: pause }, formedAt);
 
   return entrance;
 }

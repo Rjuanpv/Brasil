@@ -50,11 +50,8 @@ export function Rhythms() {
     <section
       ref={sectionRef}
       className="rhythms"
-      data-section-label="05 — Ritmos"
       aria-labelledby="rhythms-title"
     >
-      <p className="rhythms__index label">05 — Ritmos</p>
-
       <SectionTitle id="rhythms-title" lines={TITLE_LINES} accentIndex={2} />
 
       <p className="rhythms__lead">

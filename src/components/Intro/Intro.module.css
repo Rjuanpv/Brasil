@@ -128,26 +128,6 @@
   }
 }
 
-/* Convite para rolar. Aparece com a palavra formada e some ao abrir. */
-.hint {
-  position: absolute;
-  bottom: var(--space-8);
-  left: 50%;
-  translate: -50% 0;
-  z-index: 30;
-  color: var(--color-yellow-500);
-  text-align: center;
-  visibility: hidden;
-}
-
-.hint::after {
-  content: "↓";
-  display: block;
-  margin-top: var(--space-2);
-  font-size: var(--body-md);
-  letter-spacing: 0;
-}
-
 /*
   Não existe botão de pular: a spec exige que a entrada termine por completo
   antes de a interação de scroll começar, e a fase automática dura ~2,5s.

@@ -158,7 +158,6 @@ export function Nature({ onTide, tideRisen }: NatureProps) {
     <section
       ref={sectionRef}
       className="nature"
-      data-section-label="06 — Natureza"
       aria-labelledby="nature-title"
     >
       {/*
@@ -181,8 +180,6 @@ export function Nature({ onTide, tideRisen }: NatureProps) {
           <ImageTrail items={waterImages} variant={3} surfaceRef={sectionRef} />
         </div>
       )}
-
-      <p className="nature__index label">06 — Natureza</p>
 
       <SectionTitle id="nature-title" lines={TITLE_LINES} accentIndex={1} />
 

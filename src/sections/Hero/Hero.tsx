@@ -64,7 +64,6 @@ export function Hero({ interactive }: HeroProps) {
     <section
       className="hero"
       id="top"
-      data-section-label="02 — Hero"
       aria-labelledby="hero-title"
     >
       {/*

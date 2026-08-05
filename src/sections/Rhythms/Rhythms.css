@@ -20,15 +20,10 @@
 }
 
 /* O bloco editorial respeita a margem; as faixas, não. */
-.rhythms__index,
 .rhythms .section-title,
 .rhythms__lead,
 .rhythms__topics {
   padding-inline: var(--grid-margin);
-}
-
-.rhythms__index {
-  color: var(--color-yellow-500);
 }
 
 .rhythms .section-title {

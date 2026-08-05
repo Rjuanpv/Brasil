@@ -1,14 +1,12 @@
 import "./Navigation.css";
 
 interface NavigationProps {
-  /** Rótulo da seção atual, à direita da marca. */
-  section: string;
   /** Entra como passo 5 da abertura, depois do título da Hero. */
   visible: boolean;
 }
 
 /**
- * Navegação minimalista e fixa: marca, indicador de seção, botão MENU.
+ * Navegação minimalista e fixa: marca e botão MENU, um em cada canto.
  * O doc é explícito em não criar uma barra grande.
  *
  * Enquanto a abertura roda, a navegação fica fora da ordem de tabulação e do
@@ -17,7 +15,7 @@ interface NavigationProps {
  * O painel de menu em tela cheia entra junto com as seções restantes; por ora o
  * botão existe, é focável e anuncia seu estado.
  */
-export function Navigation({ section, visible }: NavigationProps) {
+export function Navigation({ visible }: NavigationProps) {
   const focusable = visible ? 0 : -1;
 
   return (
@@ -25,10 +23,6 @@ export function Navigation({ section, visible }: NavigationProps) {
       <a className="nav__brand display" href="#top" data-cursor="link" tabIndex={focusable}>
         Brasil
       </a>
-
-      <span className="nav__section label" aria-live="polite">
-        {section}
-      </span>
 
       <button
         type="button"

@@ -95,14 +95,11 @@ export function Future() {
     <section
       ref={sectionRef}
       className="future"
-      data-section-label="08 — Futuro"
       aria-labelledby="future-title"
     >
       {/* `data-self-reveal`: a malha é fundo, não conteúdo — a entrada da seção
           não pode deslocá-la nem escondê-la. */}
       <div ref={gridRef} className="future__grid" data-self-reveal aria-hidden="true" />
-
-      <p className="future__index label">08 — Futuro</p>
 
       <SectionTitle id="future-title" lines={TITLE_LINES} accentIndex={2} />
 

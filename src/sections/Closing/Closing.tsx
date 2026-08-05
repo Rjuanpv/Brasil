@@ -80,13 +80,10 @@ export function Closing() {
     <section
       ref={sectionRef}
       className="closing"
-      data-section-label="09 — Encerramento"
       aria-labelledby="closing-title"
     >
       {/* Verde vibrante difuso, atrás da frase: o país voltando à cor de origem. */}
       <div ref={glowRef} className="closing__glow" aria-hidden="true" />
-
-      <p className="closing__index label">09 — Encerramento</p>
 
       <h2 id="closing-title" className="closing__title display">
         {LINES.map((line, index) => (

@@ -18,16 +18,10 @@
 }
 
 /* O bloco editorial respeita a margem; os nomes, não. */
-.cities__index,
 .cities .section-title,
 .cities__lead,
 .cities__source {
   padding-inline: var(--grid-margin);
-}
-
-.cities__index {
-  color: var(--color-cream);
-  opacity: 0.5;
 }
 
 .cities .section-title {

@@ -42,10 +42,6 @@
   line-height: 1;
 }
 
-.nav__section {
-  opacity: 0.7;
-}
-
 .nav__menu {
   position: relative;
   padding-bottom: var(--space-1);
@@ -67,10 +63,4 @@
 .nav__menu:hover::after,
 .nav__menu:focus-visible::after {
   transform: scaleX(1);
-}
-
-@media (max-width: 480px) {
-  .nav__section {
-    display: none;
-  }
 }

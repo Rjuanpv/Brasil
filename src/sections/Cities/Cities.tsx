@@ -78,11 +78,8 @@ export function Cities() {
     <section
       ref={sectionRef}
       className="cities"
-      data-section-label="07 — Cidades"
       aria-labelledby="cities-title"
     >
-      <p className="cities__index label">07 — Cidades</p>
-
       <SectionTitle id="cities-title" lines={TITLE_LINES} accentIndex={1} />
 
       <p className="cities__lead">

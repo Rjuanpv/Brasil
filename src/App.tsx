@@ -16,7 +16,6 @@ import { Future } from "@/sections/Future/Future";
 import { Closing } from "@/sections/Closing/Closing";
 import { MouseProvider } from "@/hooks/useMousePosition";
 import { useSmoothScroll } from "@/hooks/useSmoothScroll";
-import { useCurrentSection } from "@/hooks/useCurrentSection";
 import { useIsTouch } from "@/hooks/useIsTouch";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
 
@@ -59,9 +58,6 @@ function Experience() {
 
   const isTouch = useIsTouch();
   const reducedMotion = useReducedMotion();
-
-  /* O rótulo da navegação sai das próprias seções, via data-section-label. */
-  const currentSection = useCurrentSection("02 — Hero");
 
   /*
     A decisão sobre movimento reduzido é publicada no DOM para o CSS ler.
@@ -136,7 +132,7 @@ function Experience() {
       <WaveBackdrop risen={tideRisen} />
 
       <CustomCursor />
-      <Navigation section={currentSection} visible={interactive} />
+      <Navigation visible={interactive} />
 
       <main id="main">
         <Intro onFormed={handleFormed} onOpened={handleOpened}>

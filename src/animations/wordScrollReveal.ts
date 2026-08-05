@@ -65,7 +65,6 @@ export interface WordRevealRefs {
   stage: HTMLElement;
   topHalf: HTMLElement;
   bottomHalf: HTMLElement;
-  hint: HTMLElement;
 }
 
 /**
@@ -78,7 +77,7 @@ export function createWordScrollReveal(
   refs: WordRevealRefs,
   cutLine: number,
 ): gsap.core.Timeline {
-  const { stage, topHalf, bottomHalf, hint } = refs;
+  const { stage, topHalf, bottomHalf } = refs;
 
   const stageHeight = stage.getBoundingClientRect().height;
 
@@ -102,7 +101,6 @@ export function createWordScrollReveal(
   */
   const timeline = gsap.timeline({ paused: true, defaults: { ease: "none" } });
 
-  timeline.to(hint, { autoAlpha: 0, duration: 0.12 }, 0);
   timeline.to(topHalf, { y: -topTravel, duration: 1 }, 0);
   timeline.to(bottomHalf, { y: bottomTravel, duration: 1 }, 0);
 

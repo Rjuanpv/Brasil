@@ -42,7 +42,6 @@ export function Intro({ children, onFormed, onOpened }: IntroProps) {
   const bottomHalfRef = useRef<HTMLDivElement>(null);
   const topWordRef = useRef<HTMLParagraphElement>(null);
   const bottomWordRef = useRef<HTMLParagraphElement>(null);
-  const hintRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const scroll = scrollRef.current;
@@ -51,9 +50,8 @@ export function Intro({ children, onFormed, onOpened }: IntroProps) {
     const bottomHalf = bottomHalfRef.current;
     const topWord = topWordRef.current;
     const bottomWord = bottomWordRef.current;
-    const hint = hintRef.current;
 
-    if (!scroll || !stage || !topHalf || !bottomHalf || !topWord || !bottomWord || !hint) {
+    if (!scroll || !stage || !topHalf || !bottomHalf || !topWord || !bottomWord) {
       return;
     }
 
@@ -116,7 +114,7 @@ export function Intro({ children, onFormed, onOpened }: IntroProps) {
           topHalf.style.setProperty("--cut", `${cutLine}px`);
           bottomHalf.style.setProperty("--cut", `${cutLine}px`);
 
-          const refs = { stage, topHalf, bottomHalf, topLetters, bottomLetters, hint };
+          const refs = { stage, topHalf, bottomHalf, topLetters, bottomLetters };
 
           const distance = isMobile
             ? OPENING_DISTANCE.mobile
@@ -134,9 +132,9 @@ export function Intro({ children, onFormed, onOpened }: IntroProps) {
             Criá-la antes era o bug: com o scroll travado o documento não é
             rolável, então o pin e as distâncias nasciam medidos contra uma
             página de altura zero e a rolagem não movia nada. E ao renderizar o
-            progresso 0, o ScrollTrigger gravava o valor inicial de cada tween —
-            o convite ainda estava invisível, então seu tween virava 0 → 0 e todo
-            refresh o forçava de volta, desfazendo o que a entrada tinha feito.
+            progresso 0, o ScrollTrigger grava o valor inicial de cada tween —
+            com a FASE 1 ainda por acontecer, ele gravaria o estado de antes da
+            entrada, e todo refresh forçaria a tela de volta para lá.
 
             Destravando primeiro, as duas coisas se resolvem: a medição enxerga a
             página rolável e os valores iniciais gravados são os que a entrada
@@ -240,10 +238,6 @@ export function Intro({ children, onFormed, onOpened }: IntroProps) {
         </div>
         <div ref={bottomHalfRef} className={`${styles.half} ${styles.bottom}`}>
           {word(bottomWordRef)}
-        </div>
-
-        <div ref={hintRef} className={`${styles.hint} label`} aria-hidden="true">
-          Role para abrir
         </div>
       </div>
     </section>

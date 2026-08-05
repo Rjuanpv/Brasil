@@ -17,10 +17,6 @@
   gap: var(--space-7);
 }
 
-.manifesto__index {
-  color: var(--color-green-700);
-}
-
 .manifesto .section-title {
   font-size: var(--display-md);
   max-width: 14ch;
@@ -51,6 +47,9 @@
 
 .manifesto__fact {
   display: grid;
+  /* Mesma proteção do Futuro: uma trilha `auto` não encolhe abaixo do
+     min-content, e um número largo esticaria a célula até transbordar. */
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
   align-content: start;
 }
@@ -75,7 +74,6 @@
     grid-template-columns: repeat(12, 1fr);
   }
 
-  .manifesto__index,
   .manifesto__facts {
     grid-column: 1 / -1;
   }

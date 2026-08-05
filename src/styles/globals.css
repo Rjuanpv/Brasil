@@ -14,9 +14,9 @@ html {
     compensado: não há barra para aparecer, nada muda de largura, e a experiência
     ganha de volta os ~15px que a calha ocupava em todas as seções.
 
-    O que rola de fato é o Lenis, então a barra nativa nunca foi o controle real
-    — e a posição na narrativa continua anunciada pelo indicador de seção da
-    navegação, que acompanha a leitura.
+    O que rola de fato é o Lenis, então a barra nativa nunca foi o controle real.
+    A contrapartida é assumida: a página fica sem indicador de progresso, o que
+    numa experiência de rolagem contínua é uma escolha, não um esquecimento.
 
     Só a barra da PÁGINA some. As faixas horizontais que aparecem sob movimento
     reduzido mantêm as suas: lá a rolagem manual é o que substitui a animação, e

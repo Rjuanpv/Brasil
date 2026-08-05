@@ -48,10 +48,6 @@
   z-index: 1;
 }
 
-.nature__index {
-  color: var(--color-green-700);
-}
-
 .nature .section-title {
   font-size: var(--display-md);
   max-width: 13ch;
@@ -194,7 +190,6 @@
     grid-template-columns: repeat(12, 1fr);
   }
 
-  .nature__index,
   .nature__biomes,
   .nature__source {
     grid-column: 1 / -1;
